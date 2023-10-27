@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using static RealEstateSystem.Common.EntityValidationConsatnts.Agent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +18,12 @@ namespace RealEstateSystem.Data.Models
             OwnedHauses = new HashSet<Hause>();
         }
 
+        [Key]
         public Guid Id { get; set; }
-       
 
+        [Required]
+        [MinLength(PhoneNumberMinLength)]
+        [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; } = null!;
 
         public Guid UserId { get; set; }

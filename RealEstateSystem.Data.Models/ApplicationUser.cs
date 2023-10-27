@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using static RealEstateSystem.Common.EntityValidationConsatnts.ApplicationUser;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +20,14 @@ namespace RealEstateSystem.Data.Models
 
         }
 
+        [Required]
+        [MinLength(FirstNameMinLength)]
+        [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = null!;
 
-
+        [Required]
+        [MinLength(LastNameMinLength)]
+        [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
 
 
