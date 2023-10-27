@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEestateSystem", "RealEestateSystem\RealEestateSystem.csproj", "{5D572259-C915-4088-A457-F228E697B752}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateSystem", "RealEestateSystem\RealEstateSystem.csproj", "{5D572259-C915-4088-A457-F228E697B752}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{080CD245-7702-426E-A12C-00D1D97D042B}"
 EndProject
@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateSystem.Data", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateSystem.Data.Models", "RealEstateSystem.Data.Models\RealEstateSystem.Data.Models.csproj", "{91FDF51C-8A53-4AB1-8F89-4A171FECE211}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateSystem.Services.Data", "RealEstateSystem.Services.Data\RealEstateSystem.Services.Data.csproj", "{65AE4F98-8CD1-421C-8360-2B829870DFC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateSystem.Services.Data", "RealEstateSystem.Services.Data\RealEstateSystem.Services.Data.csproj", "{65AE4F98-8CD1-421C-8360-2B829870DFC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
