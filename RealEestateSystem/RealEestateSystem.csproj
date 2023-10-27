@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RealEstateSystem.Data.Models\RealEstateSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Web.DataView\RealEstateSystem.Web.DataView.csproj" />
   </ItemGroup>
 
