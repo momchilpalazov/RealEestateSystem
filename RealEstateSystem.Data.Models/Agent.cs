@@ -15,7 +15,7 @@ namespace RealEstateSystem.Data.Models
         {
             this.Id = Guid.NewGuid();
 
-            OwnedHauses = new HashSet<Hause>();
+            ManageHauses = new HashSet<Hause>();
         }
 
         [Key]
@@ -30,7 +30,7 @@ namespace RealEstateSystem.Data.Models
 
         public virtual ApplicationUser User { get; set; } = null!;
 
-        public virtual ICollection<Hause> OwnedHauses { get; set; }        
+        public virtual ICollection<Hause> ManageHauses { get; set; }        
 
         
 

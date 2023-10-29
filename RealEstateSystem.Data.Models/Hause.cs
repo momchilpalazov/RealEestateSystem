@@ -41,7 +41,7 @@ namespace RealEstateSystem.Data.Models
         public string ImageUrl { get; set; }=null!;
 
         [Required]
-        [Range(PricePerMonthMinLength,PricePerMonthMaxLength)]
+        [Range(typeof(decimal), PricePerMonthMinLength, PricePerMonthMaxLength)]       
         public decimal PricePerMonth { get; set; }
 
         [Required]
@@ -58,7 +58,7 @@ namespace RealEstateSystem.Data.Models
 
         public virtual ApplicationUser? Renter { get; set; } = null!;
 
-
+       
 
     }
 }
