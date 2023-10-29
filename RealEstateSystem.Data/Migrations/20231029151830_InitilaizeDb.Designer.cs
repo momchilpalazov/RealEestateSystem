@@ -12,7 +12,7 @@ using RealEstateSystem.Data;
 namespace RealEstateSystem.Data.Migrations
 {
     [DbContext(typeof(RealEstateSystemDbContext))]
-    [Migration("20231029115303_InitilaizeDb")]
+    [Migration("20231029151830_InitilaizeDb")]
     partial class InitilaizeDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,16 +199,6 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
