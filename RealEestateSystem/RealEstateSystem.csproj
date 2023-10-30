@@ -16,9 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RealEstateSystem.Common\RealEstateSystem.Common.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Data.Models\RealEstateSystem.Data.Models.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
-    <ProjectReference Include="..\RealEstateSystem.Web.DataView\RealEstateSystem.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Services.Data\RealEstateSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Web.DataView\RealEstateSystem.Models.ViewModels.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Web.Infrastrucure\RealEstateSystem.Web.Infrastrucure.csproj" />
   </ItemGroup>
 
 </Project>

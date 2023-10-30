@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RealEestateSystem.Models;
+using RealEstateSystem.Models;
+using RealEstateSystem.Models.ViewModels.Home;
 using System.Diagnostics;
 
-namespace RealEestateSystem.Controllers
+namespace RealEstateSystem.Controllers
 {
     public class HomeController : Controller
     {
@@ -10,7 +11,7 @@ namespace RealEestateSystem.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new IndexViewModel());
         }
 
         public IActionResult Privacy()

@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BB966CA7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9F284DE2-318F-43BA-92D6-877507FA1FF2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateSystem.Web.ViewModels", "RealEstateSystem.Web.DataView\RealEstateSystem.Web.ViewModels.csproj", "{518D88C5-9A20-487E-8BE2-C5958AF42A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateSystem.Models.ViewModels", "RealEstateSystem.Web.DataView\RealEstateSystem.Models.ViewModels.csproj", "{518D88C5-9A20-487E-8BE2-C5958AF42A0A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateSystem.Common", "RealEstateSystem.Common\RealEstateSystem.Common.csproj", "{1E18C4B5-A223-46F8-83C4-60322DE420E4}"
 EndProject
