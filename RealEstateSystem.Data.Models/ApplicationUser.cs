@@ -16,7 +16,7 @@ namespace RealEstateSystem.Data.Models
         {
             this.Id = Guid.NewGuid();
 
-            RentedHause = new HashSet<Hause>();
+            RentedHause = new HashSet<House>();
 
         }
 
@@ -31,7 +31,7 @@ namespace RealEstateSystem.Data.Models
         //public string LastName { get; set; } = null!;
 
 
-        public ICollection<Hause> RentedHause { get; set; } 
+        public ICollection<House> RentedHause { get; set; } 
 
 
 

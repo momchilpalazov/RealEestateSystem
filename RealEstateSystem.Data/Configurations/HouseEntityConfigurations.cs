@@ -9,13 +9,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using static RealEstateSystem.Common.EntityValidationConsatnts;
-using Hause = RealEstateSystem.Data.Models.Hause;
+using House = RealEstateSystem.Data.Models.House;
 
 namespace RealEstateSystem.Data.Configurations
 {
-    public class HauseEntityConfigurations : IEntityTypeConfiguration<Hause>
+    public class HouseEntityConfigurations : IEntityTypeConfiguration<House>
     {
-        public void Configure(EntityTypeBuilder<Hause> builder)
+        public void Configure(EntityTypeBuilder<House> builder)
         {
             builder.
                 HasOne(h => h.Category)
@@ -33,13 +33,13 @@ namespace RealEstateSystem.Data.Configurations
            
         }
 
-        private Hause[] GetHauses()
+        private House[] GetHauses()
         {
-            ICollection<Hause> hause=new List<Hause>();
+            ICollection<House> hause=new List<House>();
 
-            Hause haus;
+            House haus;
 
-            haus = new Hause
+            haus = new House
             {
 
                 Title = "Big House Marina",
@@ -55,7 +55,7 @@ namespace RealEstateSystem.Data.Configurations
 
             hause.Add(haus);
 
-            haus = new Hause
+            haus = new House
             {
                 
                 Title = "Family House Comfort",
@@ -69,7 +69,7 @@ namespace RealEstateSystem.Data.Configurations
             };
             hause.Add(haus);
 
-            haus = new Hause
+            haus = new House
             {
                
                 Title = "Grand House",

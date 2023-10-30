@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace RealEstateSystem.Data.Models
 {
-    public class Hause
+    public class House
     {
 
-        public Hause()
+        public House()
         {
             this.Id = Guid.NewGuid();
         }

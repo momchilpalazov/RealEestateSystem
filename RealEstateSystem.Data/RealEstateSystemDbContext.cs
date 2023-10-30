@@ -24,7 +24,7 @@ namespace RealEstateSystem.Data
 
         // custum user is not not obligatory 
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
-        public DbSet<Hause> Hauses { get; set; } = null!;
+        public DbSet<House> Hauses { get; set; } = null!;
 
         public DbSet<Agent> Agents { get; set; } = null!;
 

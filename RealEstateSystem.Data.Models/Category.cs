@@ -18,7 +18,7 @@ namespace RealEstateSystem.Data.Models
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }=null!;
 
-        public IEnumerable<Hause> Hauses { get; set; } = new List<Hause>();
+        public IEnumerable<House> Hauses { get; set; } = new List<House>();
 
 
 
