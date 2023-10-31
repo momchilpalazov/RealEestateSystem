@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.24" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Web.DataView\RealEstateSystem.Models.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

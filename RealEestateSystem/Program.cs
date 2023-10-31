@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
+using RealEstateSystem.Services.Data;
+using RealEstateSystem.Services.Data.Interfaces;
 
 namespace RealEestateSystem
 {
@@ -26,8 +28,13 @@ namespace RealEestateSystem
                 options.Password.RequireUppercase = builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
                 options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
 
-            })
-                .AddEntityFrameworkStores<RealEstateSystemDbContext>();
+            }).AddEntityFrameworkStores<RealEstateSystemDbContext>();
+
+
+            
+            builder.Services.AddScoped<IHouseInterface, HouseService>();
+
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

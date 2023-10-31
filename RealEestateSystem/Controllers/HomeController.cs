@@ -1,17 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstateSystem.Models;
 using RealEstateSystem.Models.ViewModels.Home;
+using RealEstateSystem.Services.Data;
+using RealEstateSystem.Services.Data.Interfaces;
 using System.Diagnostics;
 
 namespace RealEstateSystem.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly IHouseInterface houseInteraface;
+
+        public HomeController(IHouseInterface houseInterface)
+        {
+            this.houseInteraface = houseInterface;
+            
+        }
        
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(new IndexViewModel());
+            var houses = await this.houseInteraface.LastThreeHouses();
+
+            return View(houses);
         }
 
         public IActionResult Privacy()
