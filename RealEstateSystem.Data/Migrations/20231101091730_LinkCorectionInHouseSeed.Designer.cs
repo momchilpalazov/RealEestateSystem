@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RealEstateSystem.Data;
 
@@ -11,9 +12,10 @@ using RealEstateSystem.Data;
 namespace RealEstateSystem.Data.Migrations
 {
     [DbContext(typeof(RealEstateSystemDbContext))]
-    partial class RealEstateSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231101091730_LinkCorectionInHouseSeed")]
+    partial class LinkCorectionInHouseSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,7 +331,7 @@ namespace RealEstateSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d0b04a54-c475-4821-850d-5261862ac263"),
+                            Id = new Guid("50ae795e-89d1-4d24-ae26-5781a4ca120c"),
                             Address = "North London, UK (near the border)",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 3,
@@ -341,18 +343,18 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("59fcc9a9-a7be-4025-9762-14e8669d41df"),
+                            Id = new Guid("03cca288-0a34-40d5-93ba-87840afb7fd9"),
                             Address = "Near the Sea Garden in Burgas, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 2,
                             Description = "It has the best comfort you will ever ask for. With two bedrooms, it is great for your family.",
-                            ImageUrl = "https://cf.bstatic.com/xdata/images/hotel/max1024x768/179489660.jpg?k=2029f6d9589b49c95dcc9503a265e292c2cdfcb5277487a0050397c3f8dd545a&o=&hp=1",
+                            ImageUrl = "https://cf.bstatic.com/xdata/images/hotel/max1024x768/179489660.jpg?k=2029f6d9589b49c95dcc9503a265e292c2cdfcb5277487a0050397c3f8dd545a & o = &hp = 1",
                             PricePerMonth = 1200.00m,
                             Title = "Family House Comfort"
                         },
                         new
                         {
-                            Id = new Guid("8574ae47-bdeb-4974-83ad-e462445bcc81"),
+                            Id = new Guid("6eeee4cc-bca1-46eb-9533-a8d0f19e1abb"),
                             Address = "Boyana Neighbourhood, Sofia, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 1,

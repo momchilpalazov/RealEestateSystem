@@ -24,7 +24,7 @@ namespace RealEstateSystem.Services.Data
 
         public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
         {
-            var houses= await this.db.Hauses.OrderByDescending(x=>x.Id).Take(2).Select(h=>new HouseIndexServiceModel
+            var houses= await this.db.Hauses.OrderByDescending(x=>x.Id).Take(3).Select(h=>new HouseIndexServiceModel
 
             {
                 Id=h.Id,

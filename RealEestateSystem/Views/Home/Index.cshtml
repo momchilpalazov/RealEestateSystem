@@ -8,56 +8,52 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Us</h1>
+    <p>Learn about <a>Best Place for Renting Houses</a>.</p>
 </div>
 
 @if (!houses.Any())
 {
  <div class="mt-4 p-5 bg-light">
  <h1 class="display-4">Welcome to the best place for renting houses!</h1>
- <p class="lead">
- There are no houses in the system currently available
- so why don't you just add one?
- </p>
+ <p class="lead"> There are no houses in the system currently available so why don't you just add one? </p>
  <hr class="my-4">
- <p class="lead">
- @if (User.Identity.IsAuthenticated)
- {
- <a asp-controller="House" asp-action="Add" class="btn btn-primary 
-btn-lg"
- role="button">Add House</a>
- }
- </p>
+     <p class="lead">
+         @if (User.Identity?.IsAuthenticated==null)
+         {
+            <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add House</a>
+         }
+     </p>
  </div>
 }
 <div class="mb-5"></div>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
- <div class="carousel-inner">
- @for (int i = 0; i < houses.Count(); i++)
- {
- var house = houses[i];
- <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
- <img class="d-block w-100" style="height:500px"
- src="@house.ImageUrl" alt="@house.Title">
-© SoftUni – about.softuni.bg. Copyrighted document. Unauthorized copy, reproduction or use is not permitted.
+     <div class="carousel-inner">
+         @for (int i = 0; i < houses.Count(); i++)
+         {
+         var house = houses[i];
+         <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
+             <img class="d-block w-100" style="height:500px"
+             src="@house.ImageUrl" alt="@house.Title">
+            © Copyrighted document. Unauthorized copy, reproduction or use is not permitted.
  
-Follow us: Page 25 of 69
- <div class="carousel-caption d-none d-md-block">
- <h5>
- <a class="btn btn-primary" asp-controller="House" aspaction="Details"
- asp-route-id="@house.Id"> @house.Title</a>
- </h5>
- </div>
- </div>
- }
- </div>
- <button class="carousel-control-prev" type="button" data-bstarget="#carouselExampleControls" data-bs-slide="prev">
- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
- <span class="visually-hidden">Previous</span>
- </button>
- <button class="carousel-control-next" type="button" data-bstarget="#carouselExampleControls" data-bs-slide="next">
- <span class="carousel-control-next-icon" aria-hidden="true"></span>
- <span class="visually-hidden">Next</span>
- </button>
+
+             <div class="carousel-caption d-none d-md-block">
+                 <h5>
+                     <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"> @house.Title</a>
+                 </h5>
+             </div>
+         </div>
+         }
+     </div>
+    <a class="carousel-control-prev" href="#houseCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+
+    <a class="carousel-control-next" href="#houseCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
+

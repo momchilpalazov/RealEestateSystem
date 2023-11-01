@@ -45,7 +45,7 @@ namespace RealEstateSystem.Data.Configurations
                 Title = "Big House Marina",
                 Address = "North London, UK (near the border)",
                 Description = "A big house for your whole family. Don't miss to buy a house with three bedrooms.",
-                ImageUrl = "https://www.luxury-architecture.net/wpcontent/uploads/2017/12/1513217889-7597-FAIRWAYS-010.jpg",
+                ImageUrl = "https://www.luxury-architecture.net/wp-content/uploads/2022/07/MMP-146688.jpg",
                 PricePerMonth = 2100.00M,
                 CategoryId = 3,
                 AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f"),//Agent.Id is admin first manuel created in the database
@@ -61,7 +61,7 @@ namespace RealEstateSystem.Data.Configurations
                 Title = "Family House Comfort",
                 Address = "Near the Sea Garden in Burgas, Bulgaria",
                 Description = "It has the best comfort you will ever ask for. With two bedrooms, it is great for your family.",
-                 ImageUrl ="https://cf.bstatic.com/xdata/images/hotel/max1024x768/179489660.jpg?k=2029f6d9589b49c95dcc9503a265e292c2cdfcb5277487a0050397c3f8dd545a & o = &hp = 1",
+                 ImageUrl ="https://cf.bstatic.com/xdata/images/hotel/max1024x768/179489660.jpg?k=2029f6d9589b49c95dcc9503a265e292c2cdfcb5277487a0050397c3f8dd545a&o=&hp=1",
                  PricePerMonth = 1200.00M,
                  CategoryId = 2,
                 AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f"),//Agent.Id is admin first manuel created in the database
