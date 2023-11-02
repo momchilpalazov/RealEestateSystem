@@ -12,7 +12,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task<bool> ExistUserByPhoneNumber(string phoneNumber);
 
-        Task<bool> UsreHasRent(Guid userId);
+        Task<bool> UserHasRent(Guid userId);
 
         Task  Create(Guid userId, string phoneNumber);
     }

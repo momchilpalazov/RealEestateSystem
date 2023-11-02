@@ -12,7 +12,7 @@ namespace RealEstateSystem.Models.ViewModels.Agents
         [Required]
         [Phone]
         [Display(Name = "Phone Number")]
-        [StringLength(10, MinimumLength = 15, ErrorMessage = "The phone number must be 10 digits long.")]
+        [StringLength(15, MinimumLength = 7, ErrorMessage = "The phone number must be 10 digits long.")]
         public string PhoneNumber { get; set; }=null!;
 
 

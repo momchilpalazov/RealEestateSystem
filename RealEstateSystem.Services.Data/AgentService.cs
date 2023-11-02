@@ -43,16 +43,16 @@ namespace RealEstateSystem.Services.Data
            
         }
 
-        public Task<bool> ExistUserByPhoneNumber(string phoneNumber)
+        public async Task<bool> ExistUserByPhoneNumber(string phoneNumber)
         {
-            var existUser = this.db.Agents.AnyAsync(x => x.PhoneNumber == phoneNumber);
+            var existUser = await this.db.Agents.AnyAsync(x => x.PhoneNumber == phoneNumber);
 
             return existUser;
         }
 
-        public Task<bool> UsreHasRent(Guid userId)
+        public async Task<bool> UserHasRent(Guid userId)
         {
-            var hasRent = this.db.Hauses.AnyAsync(x => x.RenterId == userId);  
+            var hasRent = await this.db.Hauses.AnyAsync(x => x.RenterId == userId);  
 
             return hasRent;
         }
