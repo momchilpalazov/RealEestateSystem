@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstateSystem.Models.ViewModels.Agents
+namespace RealEstateSystem.Web.Infrastructure.Extensions
 {
-    public class BecomeAgentFormModel
+    public class ClaimsPrincipalExtensions
     {
-
-
-
-
     }
 }

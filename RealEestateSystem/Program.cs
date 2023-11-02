@@ -28,11 +28,12 @@ namespace RealEestateSystem
                 options.Password.RequireUppercase = builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
                 options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
 
-            }).AddEntityFrameworkStores<RealEstateSystemDbContext>();
+            }).AddRoles<IdentityRole<Guid>>().AddEntityFrameworkStores<RealEstateSystemDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
 
             
             builder.Services.AddScoped<IHouseInterface, HouseService>();
+            builder.Services.AddScoped<IAgentInterface, AgentServiceIndex>();
 
 
             builder.Services.AddControllersWithViews();
