@@ -34,6 +34,7 @@ namespace RealEestateSystem
             
             builder.Services.AddScoped<IHouseInterface, HouseService>();
             builder.Services.AddScoped<IAgentInterface, AgentServiceIndex>();
+            builder.Services.AddScoped<ICategoryInterface, CategoryService>();
 
 
             builder.Services.AddControllersWithViews();

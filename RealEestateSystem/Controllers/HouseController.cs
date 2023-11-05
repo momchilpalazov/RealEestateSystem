@@ -2,12 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RealEstateSystem.Models.ViewModels.House;
+using RealEstateSystem.Services.Data.Interfaces;
 
 namespace RealEstateSystem.Controllers
 {
     [Authorize]
     public class HouseController : Controller
     {
+
+        private readonly IHouseInterface houseService;
+
+        public HouseController(IHouseInterface houseService)
+        {
+            this.houseService = houseService;
+        }
+
+
+
+
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult All()

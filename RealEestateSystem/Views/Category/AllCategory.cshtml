@@ -1,0 +1,38 @@
+﻿@using RealEstateSystem.Models.ViewModels.Category
+@model IEnumerable<CategoryHouseServiceViewModel>
+
+
+@{
+    ViewBag.Title = "AllCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h1>All Categories</h1>
+
+<a asp-controller="Categories" asp-action="Create" class="btn btn-primary mb-3">Create New Category</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th> 
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+  @foreach (var category in Model)
+  {
+    <tr>
+      <td>@category.Id</td>
+      <td>@category.Name</td>
+      <td>
+        <a asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-warning">Edit</a> 
+        <a asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
