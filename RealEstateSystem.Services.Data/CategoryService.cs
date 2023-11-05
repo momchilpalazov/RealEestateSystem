@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
+using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Services.Data.Interfaces;
 using System;
@@ -31,6 +32,22 @@ namespace RealEstateSystem.Services.Data
             }).ToListAsync();
 
             return await allCategory;
+
+            
+        }
+
+        public async Task<IEnumerable<CategoryHouseServiceViewModel>> CreateCategory(CategoryHouseServiceViewModel model)
+        {
+            var category = new Category
+            {
+                
+                Name = model.Name
+            };
+
+            await this.db.Categories.AddAsync(category);
+            await this.db.SaveChangesAsync();
+
+            return await this.AllCategory();
 
             
         }

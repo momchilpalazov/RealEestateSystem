@@ -28,9 +28,26 @@ namespace RealEstateSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
+           
+            return this.View();
+
         
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CategoryHouseServiceViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            await this.categoryService.CreateCategory(model);
+
+            return this.RedirectToAction("AllCategory", "Category");
         }
 
        
