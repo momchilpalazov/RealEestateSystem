@@ -32,7 +32,6 @@ namespace RealEstateSystem.Controllers
         {
            
             return this.View();
-
         
         }
 
@@ -45,11 +44,59 @@ namespace RealEstateSystem.Controllers
                 return this.View(model);
             }
 
-            await this.categoryService.CreateCategory(model);
+            await this.categoryService.CreateNewCategory(model);
 
             return this.RedirectToAction("AllCategory", "Category");
         }
 
+
+        [HttpGet]
+        public async Task <IActionResult> Edit(CategoryHouseServiceViewModel model)
+        {
+
+            var categoryById = await this.categoryService.FindCategoryById(model);
+
+            return this.View(categoryById);
+            
+                       
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPost(CategoryHouseServiceViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            await this.categoryService.EditCategory(model);
+
+            return this.RedirectToAction("AllCategory", "Category");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(CategoryHouseServiceViewModel model)
+        {
+
+            var categoryById = await this.categoryService.FindCategoryById(model);
+
+            return this.View(categoryById);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeletePost(CategoryHouseServiceViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            await this.categoryService.DeleteCategory(model);
+
+            return this.RedirectToAction("AllCategory", "Category");
+        }
        
     }
 }

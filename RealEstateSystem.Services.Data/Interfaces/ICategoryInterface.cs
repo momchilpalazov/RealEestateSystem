@@ -10,6 +10,9 @@ namespace RealEstateSystem.Services.Data.Interfaces
     public interface ICategoryInterface
     {
         Task<IEnumerable<CategoryHouseServiceViewModel>> AllCategory();
-        Task<IEnumerable<CategoryHouseServiceViewModel>> CreateCategory(CategoryHouseServiceViewModel model);
+        Task<IEnumerable<CategoryHouseServiceViewModel>> CreateNewCategory(CategoryHouseServiceViewModel model);
+        Task <CategoryHouseServiceViewModel>DeleteCategory(CategoryHouseServiceViewModel model);
+        Task EditCategory(CategoryHouseServiceViewModel model);
+        Task<CategoryHouseServiceViewModel?>FindCategoryById(CategoryHouseServiceViewModel model);
     }
 }

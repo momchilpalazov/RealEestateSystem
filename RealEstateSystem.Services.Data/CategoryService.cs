@@ -36,7 +36,7 @@ namespace RealEstateSystem.Services.Data
             
         }
 
-        public async Task<IEnumerable<CategoryHouseServiceViewModel>> CreateCategory(CategoryHouseServiceViewModel model)
+        public async Task<IEnumerable<CategoryHouseServiceViewModel>> CreateNewCategory(CategoryHouseServiceViewModel model)
         {
             var category = new Category
             {
@@ -49,6 +49,55 @@ namespace RealEstateSystem.Services.Data
 
             return await this.AllCategory();
 
+            
+        }
+
+        public async Task<CategoryHouseServiceViewModel> DeleteCategory(CategoryHouseServiceViewModel model)
+        {
+
+            var deleteCategory = await this.db.Categories.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (deleteCategory != null)
+            {
+                this.db.Categories.Remove(deleteCategory);
+                await this.db.SaveChangesAsync();
+            }
+
+            return model;
+            
+
+
+            
+        }
+
+        public async Task EditCategory(CategoryHouseServiceViewModel model)
+        {
+
+            var editCategory = await this.db.Categories.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (editCategory != null)
+            {
+              
+                editCategory.Name = model.Name;
+                await this.db.SaveChangesAsync();
+            }
+
+
+
+           
+        }
+
+        public async Task<CategoryHouseServiceViewModel?>FindCategoryById(CategoryHouseServiceViewModel model)
+        {
+
+            
+            var categoryById = await this.db.Categories.Where(x => x.Id == model.Id).Select(x => new CategoryHouseServiceViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToListAsync();
+
+            return categoryById.FirstOrDefault();
+
+            
             
         }
     }
