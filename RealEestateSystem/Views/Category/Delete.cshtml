@@ -1,4 +1,4 @@
-﻿@using RealEstateSystem.Models.ViewModels.Category
+﻿@* @using RealEstateSystem.Models.ViewModels.Category
 @model CategoryHouseServiceViewModel
 
 @{
@@ -25,13 +25,17 @@
         </dd>
     </dl>
 
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+    <form asp-action="DeletePost" id="deleteForm">
+        <input type="hidden" asp-for="Id" />        
+        <button type="button" class="btn btn-danger" id="openDeleteModal">Delete</button>
 
-    |
-    <a asp-action="AllCategory">Back to List</a>
+        |
+
+        <a asp-action="AllCategory">Back to List</a>
+    </form>
 </div>
 
-         @* Modal for Delete Confirmation  *@
+<!-- Modal for Delete Confirmation -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -46,18 +50,206 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <form asp-action="DeletePost">
-                    <input type="hidden" name="Id" value="@Model.Id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
+                <button  type="submit" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>
 </div>
 
+
+
 @section Scripts {
+    <script>
+        $(function () {
+            $("#openDeleteModal").on("click", function () {
+                $("#confirmDeleteModal").modal("show");
+            });
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            $("#confirmDeleteModal").on("shown.bs.modal", function () {
+                $("#deleteForm").on("submit", function () {
+                    $("#confirmDeleteModal").modal("hide");
+                });
+            });
+        });
+    </script>
+} *@
 
+@using RealEstateSystem.Models.ViewModels.Category
+@model CategoryHouseServiceViewModel
+    
+@{
+    ViewData["Title"] = "Delete";
 }
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this category?</p>
+
+<table class="table">
+    <thead>
+        <tr class="table-header">
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+        </tr>
+    </tbody>
+</table>
+
+<form asp-action="DeletePost" id="myForm" onsubmit="sendForm(event)" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit"  class="btn btn-danger">Delete</button>
+    |
+    <a asp-action="AllCategory">Back to List</a>
+</form>
+
+@section Scripts {
+    <script>
+        // $(function () {
+        //     $("form[asp-action='DeletePost']").submit(function () {
+
+        //         var form = $(this);
+
+        //         Swal.fire({
+        //             title: "Are you sure you want to delete this category?",
+        //             text: "This action cannot be undone.",
+        //             type: "warning",
+        //             showCancelButton: true,
+        //             confirmButtonColor: "#DD6B55",
+        //             cancelButtonColor: "#868E96",
+        //             confirmButtonText: "Yes, delete it!",
+        //             cancelButtonText: "No, cancel"
+        //         }).then(function (result) {
+        //             if (result.isConfirmed) {
+        //                 form.submit();
+        //             }
+        //         });
+        //         return false; // Prevent default submission of the form
+        //     });
+        // });
+
+        function sendForm(event) {
+            event.preventDefault();
+
+
+            Swal.fire({
+                title: "Are you sure you want to delete this category?",
+                text: "This action cannot be undone.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonColor: "#868E96",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    const form = document.getElementById('myForm');
+                    form.submit();
+                    
+                }
+            });
+
+            
+        }
+
+
+    </script>
+}
+
+@* @section Scripts {
+
+<script>
+
+$(function () {
+
+  $("form[asp-action='DeletePost']").submit(function(event) {
+
+    event.preventDefault(); 
+
+    var form = $(this);
+
+    Swal.fire({
+      // Swal code
+                    title: "Are you sure you want to delete this category?",
+                    text: "This action cannot be undone.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    cancelButtonColor: "#868E96",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel"
+    }).then(function(result) {
+
+      if (result.isConfirmed) {
+
+        form.off('submit').submit();
+
+      }
+
+    });
+
+  });
+
+});
+
+</script>
+    
+    } *@
+    
+@* @section Scripts {
+
+    <script>
+
+        $(function () {
+
+            $("form#deleteForm").submit(function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                var form = $(this);
+
+                Swal.fire({
+                    // Swal code
+
+
+                    title: "Are you sure you want to delete this category?",
+                    text: "This action cannot be undone.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    cancelButtonColor: "#868E96",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel"
+
+                }).then(function (result) {
+
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            url: form.attr('action'),
+                            method: 'POST',
+                            data: form.serialize(),
+                            success: function () {
+                                // redirect after successful delete
+                            }
+                        });
+
+                    }
+
+                });
+
+                return false;
+
+            });
+
+        });
+
+    </script>
+
+} *@
+

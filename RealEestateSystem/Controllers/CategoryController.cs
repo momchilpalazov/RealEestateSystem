@@ -88,11 +88,7 @@ namespace RealEstateSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> DeletePost(CategoryHouseServiceViewModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-
+            
             await this.categoryService.DeleteCategory(model);
 
             return this.RedirectToAction("AllCategory", "Category");
