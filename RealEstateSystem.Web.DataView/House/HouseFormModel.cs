@@ -27,6 +27,9 @@ namespace RealEstateSystem.Models.ViewModels.House
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = null!;
 
+
+        public string ImageUpload { get; set; } = null!;    
+
         [Required]
         [Display(Name = "Price Per Month")]
         [Range(typeof(decimal), PricePerMonthMinLength, PricePerMonthMaxLength,ErrorMessage ="Prise per Month must be positive number and less than {2} Euro")]

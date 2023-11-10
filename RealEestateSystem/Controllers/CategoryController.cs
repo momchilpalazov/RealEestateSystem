@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Services.Data.Interfaces;
 
 namespace RealEstateSystem.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
 

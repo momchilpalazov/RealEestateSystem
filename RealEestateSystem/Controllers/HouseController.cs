@@ -48,15 +48,22 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add(HouseFormModel model)
         {
-            return View();
+            var categoriesList = this.houseService.GetCategories();
+            model.Categories = categoriesList;
+
+            //only agents are allowed to add houses
+
+
+            return View(model);
         }
 
         
         [HttpPost]
-        public IActionResult Add(HouseFormModel house)
+        public IActionResult AddPost(HouseFormModel house)
         {
+            //only agents are allowed to add houses
             return RedirectToAction(nameof(Details));
         }
 

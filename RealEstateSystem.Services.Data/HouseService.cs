@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
+using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
 using System;
@@ -20,7 +21,18 @@ namespace RealEstateSystem.Services.Data
             this.db = db;
         }
 
+        public ICollection<CategoryHouseServiceViewModel> GetCategories()
+        {
 
+            var categories = this.db.Categories.Select(x => new CategoryHouseServiceViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            return categories;
+            
+        }
 
         public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
         {
