@@ -27,7 +27,10 @@ namespace RealEstateSystem.Data.Configurations
                 HasOne(h => h.Agent)
                 .WithMany(a => a.ManageHauses)
                 .HasForeignKey(h => h.AgentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);          
+
+
+
 
             builder.HasData(GetHauses());
            

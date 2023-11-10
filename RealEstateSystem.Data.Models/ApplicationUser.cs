@@ -20,15 +20,7 @@ namespace RealEstateSystem.Data.Models
 
         }
 
-        //[Required]
-        //[MinLength(FirstNameMinLength)]
-        //[MaxLength(FirstNameMaxLength)]
-        //public string FirstName { get; set; } = null!;
-
-        //[Required]
-        //[MinLength(LastNameMinLength)]
-        //[MaxLength(LastNameMaxLength)]
-        //public string LastName { get; set; } = null!;
+       
 
 
         public ICollection<House> RentedHause { get; set; } 

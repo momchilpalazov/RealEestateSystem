@@ -58,6 +58,7 @@ namespace RealEstateSystem.Data.Models
 
         public virtual ApplicationUser? Renter { get; set; } = null!;
 
+        public virtual ICollection<Image>? Images { get; set; } 
        
 
     }

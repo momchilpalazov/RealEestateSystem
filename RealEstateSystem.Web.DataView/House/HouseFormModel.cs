@@ -24,11 +24,9 @@ namespace RealEstateSystem.Models.ViewModels.House
         public string Description { get; set; } = null!;
 
         [Required]
-        [Display(Name = "Image URL")]
+        [Display(Name = "Image Upload or Add Link")]
         public string ImageUrl { get; set; } = null!;
-
-
-        public string ImageUpload { get; set; } = null!;    
+ 
 
         [Required]
         [Display(Name = "Price Per Month")]

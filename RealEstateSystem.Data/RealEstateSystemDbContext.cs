@@ -30,6 +30,8 @@ namespace RealEstateSystem.Data
 
         public DbSet<Category> Categories { get; set; } = null!;
 
+        public DbSet<Image> Images { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly assembly = Assembly.GetAssembly(typeof(RealEstateSystemDbContext)) ?? throw new InvalidOperationException("Assembly not found.");

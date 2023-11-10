@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
+using RealEstateSystems.Web.Infrastructure.Helper;
 
 namespace RealEstateSystem.Controllers
 {
@@ -12,9 +13,13 @@ namespace RealEstateSystem.Controllers
 
         private readonly IHouseInterface houseService;
 
-        public HouseController(IHouseInterface houseService)
+        private readonly ImageService imageService;
+       
+
+        public HouseController(IHouseInterface houseService,ImageService imageService)
         {
             this.houseService = houseService;
+            this.imageService = imageService;
         }
 
 
@@ -59,13 +64,20 @@ namespace RealEstateSystem.Controllers
             return View(model);
         }
 
-        
-        [HttpPost]
-        public IActionResult AddPost(HouseFormModel house)
-        {
-            //only agents are allowed to add houses
-            return RedirectToAction(nameof(Details));
-        }
+
+        //[HttpPost]
+        //public async Task< IActionResult> AddPost(HouseFormModel house,IFormFile image)
+        //{
+        //    //only agents are allowed to add houses
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        var imageUrl = await this.imageService.SaveImageAsync(image);
+        //        await this.houseService.AddHouse(house, imageUrl);
+        //        return RedirectToAction(nameof(All));
+        //    }
+        //    return View(house);
+        //}
 
         [AllowAnonymous]
         [HttpGet]
