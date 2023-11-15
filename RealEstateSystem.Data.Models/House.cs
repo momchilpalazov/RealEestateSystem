@@ -37,8 +37,11 @@ namespace RealEstateSystem.Data.Models
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }=null!;
 
-        [Required]
-        public string ImageUrl { get; set; }=null!;
+       
+        public string? ImageUrl { get; set; }
+
+        public virtual Image? Images { get; set; }
+
 
         [Required]
         [Range(typeof(decimal), PricePerMonthMinLength, PricePerMonthMaxLength)]       
@@ -58,8 +61,9 @@ namespace RealEstateSystem.Data.Models
 
         public virtual ApplicationUser? Renter { get; set; } = null!;
 
-        public virtual ICollection<Image>? Images { get; set; } 
-       
+
+        
+
 
     }
 }

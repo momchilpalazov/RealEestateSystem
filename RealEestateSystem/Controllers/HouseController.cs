@@ -13,10 +13,10 @@ namespace RealEstateSystem.Controllers
 
         private readonly IHouseInterface houseService;
 
-        private readonly ImageService imageService;
+       private readonly DataBaseSaveImageHelper imageService;
        
 
-        public HouseController(IHouseInterface houseService,ImageService imageService)
+        public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService)
         {
             this.houseService = houseService;
             this.imageService = imageService;
@@ -65,19 +65,27 @@ namespace RealEstateSystem.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task< IActionResult> AddPost(HouseFormModel house,IFormFile image)
-        //{
-        //    //only agents are allowed to add houses
+        [HttpPost]
+        public async Task<IActionResult> AddPost(HouseFormModel house,IFormFile image)
+        {
+            //only agents are allowed to add houses
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        var imageUrl = await this.imageService.SaveImageAsync(image);
-        //        await this.houseService.AddHouse(house, imageUrl);
-        //        return RedirectToAction(nameof(All));
-        //    }
-        //    return View(house);
-        //}
+            if (ModelState.IsValid)
+            {
+                return View(house);
+               
+            }
+
+
+           
+            house.Categories= this.houseService.GetCategories();
+             var Image = await this.imageService.SaveImageToDataAsync(image);
+
+            await this.houseService.AddHouse(house);
+            return RedirectToAction(nameof(All));
+
+           
+        }
 
         [AllowAnonymous]
         [HttpGet]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RealEstateSystem.Data;
 
@@ -11,9 +12,10 @@ using RealEstateSystem.Data;
 namespace RealEstateSystem.Data.Migrations
 {
     [DbContext(typeof(RealEstateSystemDbContext))]
-    partial class RealEstateSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115165156_AddHoeseImagesUrlCorection")]
+    partial class AddHoeseImagesUrlCorection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,7 +306,7 @@ namespace RealEstateSystem.Data.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ImagesId")
+                    b.Property<int>("ImagesId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PricePerMonth")
@@ -324,8 +326,6 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ImagesId");
-
                     b.HasIndex("RenterId");
 
                     b.ToTable("Hauses");
@@ -333,35 +333,38 @@ namespace RealEstateSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1e117293-6f93-4997-b335-8a37b3f27f35"),
+                            Id = new Guid("d2b74d20-4ad5-4204-b9e7-a5de76ce2356"),
                             Address = "North London, UK (near the border)",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 3,
                             Description = "A big house for your whole family. Don't miss to buy a house with three bedrooms.",
                             ImageUrl = "https://www.luxury-architecture.net/wp-content/uploads/2022/07/MMP-146688.jpg",
+                            ImagesId = 0,
                             PricePerMonth = 2100.00m,
                             RenterId = new Guid("842c3156-8794-4456-aaa6-e67f1821eafe"),
                             Title = "Big House Marina"
                         },
                         new
                         {
-                            Id = new Guid("15c2f95a-de0d-4665-850d-c659ca9b9b77"),
+                            Id = new Guid("ba93ad4a-f1be-414e-9138-9c8b7e9e2357"),
                             Address = "Near the Sea Garden in Burgas, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 2,
                             Description = "It has the best comfort you will ever ask for. With two bedrooms, it is great for your family.",
                             ImageUrl = "https://cf.bstatic.com/xdata/images/hotel/max1024x768/179489660.jpg?k=2029f6d9589b49c95dcc9503a265e292c2cdfcb5277487a0050397c3f8dd545a&o=&hp=1",
+                            ImagesId = 0,
                             PricePerMonth = 1200.00m,
                             Title = "Family House Comfort"
                         },
                         new
                         {
-                            Id = new Guid("743aa4b6-6776-4cb5-b11b-4a7c7a1459db"),
+                            Id = new Guid("3651144e-314c-4f35-a2e8-e1b1ece96778"),
                             Address = "Boyana Neighbourhood, Sofia, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 1,
                             Description = "This luxurious house is everything you will need. It is just excellent.",
                             ImageUrl = "https://i.pinimg.com/originals/a6/f5/85/a6f5850a77633c56e4e4ac4f867e3c00.jpg",
+                            ImagesId = 0,
                             PricePerMonth = 2000.00m,
                             Title = "Grand House"
                         });
@@ -384,9 +387,14 @@ namespace RealEstateSystem.Data.Migrations
                     b.Property<string>("ContentType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("HouseId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AgentId");
+
+                    b.HasIndex("HouseId");
 
                     b.ToTable("Images");
                 });
@@ -467,10 +475,6 @@ namespace RealEstateSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RealEstateSystem.Data.Models.Image", "Images")
-                        .WithMany()
-                        .HasForeignKey("ImagesId");
-
                     b.HasOne("RealEstateSystem.Data.Models.ApplicationUser", "Renter")
                         .WithMany("RentedHause")
                         .HasForeignKey("RenterId");
@@ -478,8 +482,6 @@ namespace RealEstateSystem.Data.Migrations
                     b.Navigation("Agent");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Images");
 
                     b.Navigation("Renter");
                 });
@@ -489,6 +491,10 @@ namespace RealEstateSystem.Data.Migrations
                     b.HasOne("RealEstateSystem.Data.Models.Agent", null)
                         .WithMany("Images")
                         .HasForeignKey("AgentId");
+
+                    b.HasOne("RealEstateSystem.Data.Models.House", null)
+                        .WithMany("Images")
+                        .HasForeignKey("HouseId");
                 });
 
             modelBuilder.Entity("RealEstateSystem.Data.Models.Agent", b =>
@@ -506,6 +512,11 @@ namespace RealEstateSystem.Data.Migrations
             modelBuilder.Entity("RealEstateSystem.Data.Models.Category", b =>
                 {
                     b.Navigation("Hauses");
+                });
+
+            modelBuilder.Entity("RealEstateSystem.Data.Models.House", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

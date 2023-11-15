@@ -5,6 +5,7 @@ using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Services.Data;
 using RealEstateSystem.Services.Data.Interfaces;
+using RealEstateSystems.Web.Infrastructure.Helper;
 
 namespace RealEestateSystem
 {
@@ -35,6 +36,8 @@ namespace RealEestateSystem
             builder.Services.AddScoped<IHouseInterface, HouseService>();
             builder.Services.AddScoped<IAgentInterface, AgentServiceIndex>();
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
+            builder.Services.AddScoped<LocalSaveImageHelper>();
+            builder.Services.AddScoped<DataBaseSaveImageHelper>();
 
 
             builder.Services.AddControllersWithViews();

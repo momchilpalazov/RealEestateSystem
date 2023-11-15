@@ -11,19 +11,12 @@ namespace RealEstateSystem.Data.Models
     {
        
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public byte[]? Content { get; set; }
 
-        public string? ContentType { get; set; } 
-        
-        public Guid HouseId { get; set; }
+        public string? ContentType { get; set; }       
 
-        public House? House { get; set; } 
-
-        public Guid AgentId { get; set; }
-
-        public Agent? Agent { get; set; } 
 
 
 

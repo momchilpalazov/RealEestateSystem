@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Add" method="post" enctype="multipart/form-data">
+<form asp-action="AddPost" method="post" enctype="multipart/form-data">
 
     <div class="form-group">
         <label asp-for="Title"></label>
@@ -29,10 +29,21 @@
 
     <div class="form-group">
         <label asp-for="ImageUrl"></label>
-        <input asp-for="ImageUrl" class="form-control" />
-        <input type="file" name="ImageUpload" accept=".png,.jpg,.jpeg" />
+        <input asp-for="ImageUrl" class="form-control" />       
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>    
+    <hr />
+
+    <div class="form-group">
+
+        <label asp-for="Images" class="form-control">
+            <label>Upload Image</label>
+            <hr/>
+            <input type="file" name="image" id="image"  accept=".png,.jpg,.jpeg" />
+        </label>
+       
+
+    </div>
    
 
     <div class="form-group">

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace RealEstateSystems.Web.Infrastructure.Helper
 {
-    public class ImageService
+    public class LocalSaveImageHelper
     {
         private readonly IWebHostEnvironment hostingEnvironment;
 
-        public ImageService(IWebHostEnvironment hostingEnvironment)
+        public LocalSaveImageHelper(IWebHostEnvironment hostingEnvironment)
         {
             this.hostingEnvironment = hostingEnvironment;
         }

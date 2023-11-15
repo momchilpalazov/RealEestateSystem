@@ -1,4 +1,5 @@
-﻿using RealEstateSystem.Models.ViewModels.Category;
+﻿using Microsoft.AspNetCore.Http;
+using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
 {
     public interface IHouseInterface
     {
+        Task AddHouse(HouseFormModel house);
         ICollection<CategoryHouseServiceViewModel> GetCategories();
         Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses();
     }

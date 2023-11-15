@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RealEstateSystem.Data;
 
@@ -11,9 +12,10 @@ using RealEstateSystem.Data;
 namespace RealEstateSystem.Data.Migrations
 {
     [DbContext(typeof(RealEstateSystemDbContext))]
-    partial class RealEstateSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115213252_HouseEntityCorrection")]
+    partial class HouseEntityCorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,9 +306,6 @@ namespace RealEstateSystem.Data.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ImagesId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("PricePerMonth")
                         .HasColumnType("decimal(18,2)");
 
@@ -324,8 +323,6 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ImagesId");
-
                     b.HasIndex("RenterId");
 
                     b.ToTable("Hauses");
@@ -333,7 +330,7 @@ namespace RealEstateSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1e117293-6f93-4997-b335-8a37b3f27f35"),
+                            Id = new Guid("817c274b-2509-4f49-9efe-fae4f5ff28d2"),
                             Address = "North London, UK (near the border)",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 3,
@@ -345,7 +342,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("15c2f95a-de0d-4665-850d-c659ca9b9b77"),
+                            Id = new Guid("07c70665-5ece-40b5-92ba-1400d8639bbb"),
                             Address = "Near the Sea Garden in Burgas, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 2,
@@ -356,7 +353,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("743aa4b6-6776-4cb5-b11b-4a7c7a1459db"),
+                            Id = new Guid("bce17fde-8b05-4bf1-a57f-c192393bcdc8"),
                             Address = "Boyana Neighbourhood, Sofia, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 1,
@@ -467,10 +464,6 @@ namespace RealEstateSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RealEstateSystem.Data.Models.Image", "Images")
-                        .WithMany()
-                        .HasForeignKey("ImagesId");
-
                     b.HasOne("RealEstateSystem.Data.Models.ApplicationUser", "Renter")
                         .WithMany("RentedHause")
                         .HasForeignKey("RenterId");
@@ -478,8 +471,6 @@ namespace RealEstateSystem.Data.Migrations
                     b.Navigation("Agent");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Images");
 
                     b.Navigation("Renter");
                 });

@@ -12,8 +12,8 @@ using RealEstateSystem.Data;
 namespace RealEstateSystem.Data.Migrations
 {
     [DbContext(typeof(RealEstateSystemDbContext))]
-    [Migration("20231110222657_AddEntityImage")]
-    partial class AddEntityImage
+    [Migration("20231115155215_AddImageEntity")]
+    partial class AddImageEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -331,7 +331,7 @@ namespace RealEstateSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("85f65400-e2a5-4768-82e0-56dc729718c9"),
+                            Id = new Guid("e30ac98a-60ac-4361-9358-a079c3de3c1e"),
                             Address = "North London, UK (near the border)",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 3,
@@ -343,7 +343,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5a1ae868-ccb0-4778-a5a1-12db02341950"),
+                            Id = new Guid("2a969c7a-9e70-45f7-9ebd-c62327adcbb3"),
                             Address = "Near the Sea Garden in Burgas, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 2,
@@ -354,7 +354,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8b505408-9646-40d8-86fa-038f2f73ac7a"),
+                            Id = new Guid("bff8fe99-934f-42eb-9ff9-1d952d66651f"),
                             Address = "Boyana Neighbourhood, Sofia, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 1,
@@ -367,9 +367,11 @@ namespace RealEstateSystem.Data.Migrations
 
             modelBuilder.Entity("RealEstateSystem.Data.Models.Image", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<Guid>("AgentId")
                         .HasColumnType("uniqueidentifier");
