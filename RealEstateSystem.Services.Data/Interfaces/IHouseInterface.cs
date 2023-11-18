@@ -13,7 +13,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
     public interface IHouseInterface
     {
         Task AddHouse(HouseFormModel house);
-        HouseQueryServiceModel GetAllHouse(string? category=null,string? searchTerm=null,HouseSorting sorting= HouseSorting.Newest,int currentPage=1,int housesPerPage=1);
+        HouseQueryServiceModel GetAllHouse(int? categoryId=null,string? searchTerm=null,HouseSorting sorting= HouseSorting.Newest,int currentPage=1,int housesPerPage=1);
         ICollection<CategoryHouseServiceViewModel> GetCategories();
         Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses();
     }

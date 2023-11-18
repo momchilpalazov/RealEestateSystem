@@ -55,35 +55,17 @@ namespace RealEstateSystem.Services.Data
             
         }
 
-        //public async Task<ICollection<AllHousesQueryModel>> GetAllHouse()
-        //{
+        
 
-        //    return await this.db.Hauses.Select(h => new AllHousesQueryModel
-        //    {
-        //        //Id = h.Id,
-        //        //Title = h.Title,
-        //        //Description = h.Description,
-        //        //PricePerMonth = h.PricePerMonth,
-        //        //Address = h.Address,
-        //        //CategoryId = h.CategoryId,
-        //        //ImageUrl = h.ImageUrl,
-        //        //Images = h.Images,
-        //        //AgentId = h.AgentId
-
-        //    }).ToListAsync();
-
-            
-        //}
-
-        public HouseQueryServiceModel GetAllHouse(string? category = null, string? searchTerm = null, HouseSorting sorting = HouseSorting.Newest, int currentPage = 1, int housesPerPage = 1)
+        public HouseQueryServiceModel GetAllHouse(int? categoryId=null  , string? searchTerm = null, HouseSorting sorting = HouseSorting.Newest, int currentPage = 1, int housesPerPage = 1)
         {
 
             var housesQuery = this.db.Hauses.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(category))
+            if (categoryId!=0)
             {
 
-                housesQuery = db.Hauses.Where(n => n.Category.Name == category);
+                housesQuery = housesQuery.Where(n => n.CategoryId == categoryId.Value);
 
 
             }
@@ -91,7 +73,7 @@ namespace RealEstateSystem.Services.Data
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
 
-                housesQuery = db.Hauses.Where(
+                housesQuery = housesQuery.Where(
                     s => s.Address.ToLower().Contains(searchTerm.ToLower()) ||
                     s.Title.ToLower().Contains(searchTerm.ToLower()) ||
                     s.Description.ToLower().Contains(searchTerm.ToLower())

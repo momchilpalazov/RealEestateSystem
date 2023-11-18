@@ -33,7 +33,7 @@ namespace RealEstateSystem.Controllers
         {
             
             var housesQuery =  this.houseService.GetAllHouse(
-                query.Category,
+                query.CategoryId,
                 query.SearchTerm,
                 query.Sorting,
                 query.CuurentPage,

@@ -10,8 +10,8 @@
     <div class="row">
         <div class="form-group col-md-3 d-flex justify-content-between">
             <div class="form-group">
-                <label asp-for="Category"></label>
-                <select asp-for="Category" class="form-control">
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId" class="form-control">
                     <option value="">All</option>
                     @foreach (var category in Model.Categories)
                     {
@@ -58,7 +58,7 @@ string.Empty)"
            asp-controller="House"
            asp-action="All"
            asp-route-currentPage="@previousPage"
-           asp-route-category="@Model.Category"
+           asp-route-category="@Model.CategoryId"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-sorting="@((int)Model.Sorting)"><<</a>
     </div>
@@ -72,7 +72,7 @@ string.Empty)"
            asp-controller="House"
            asp-action="All"
            asp-route-currentPage="@(Model.CuurentPage + 1)"
-           asp-route-category="@Model.Category"
+           asp-route-category="@Model.CategoryId"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-sorting="@((int)Model.Sorting)">>></a>
     </div>

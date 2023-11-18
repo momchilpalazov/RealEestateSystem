@@ -12,7 +12,7 @@ namespace RealEstateSystem.Models.ViewModels.House
     {
         public const int HousesPerPage = 3;
 
-        public string Category { get; init; } = null!;
+        public int CategoryId { get; init; } 
 
         public string SearchTerm { get; init; } = null!;
 
