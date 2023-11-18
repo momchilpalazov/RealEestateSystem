@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Web.DataView\RealEstateSystem.Models.ViewModels.csproj" />
+    <ProjectReference Include="..\RealEstateSystems.Web.Infrastructure\RealEstateSystems.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

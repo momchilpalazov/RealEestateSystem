@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RealEstateSystem.Models.ViewModels.Category;
+using RealEstateSystems.Web.Infrastructure.HouseSorting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,23 @@ namespace RealEstateSystem.Models.ViewModels.House
 {
     public class AllHousesQueryModel
     {
+        public const int HousesPerPage = 3;
+
+        public string Category { get; init; } = null!;
+
+        public string SearchTerm { get; init; } = null!;
+
+        public HouseSorting Sorting { get; init; }
+
+        public int CuurentPage { get; init; } = 1;
+
+        public int TotalHouseCount { get; set; } 
+
+        public IEnumerable<HouseServiceModel> Houses { get; set; } = new List<HouseServiceModel>();
+
+        public IEnumerable<CategoryHouseServiceViewModel> Categories { get; set; } = new List<CategoryHouseServiceViewModel>();
+       
+
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Helper;
@@ -28,12 +29,31 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult All()
+        public  IActionResult All([FromQuery] AllHousesQueryModel query )
         {
             
-            return View(new AllHousesQueryModel());             
+            var housesQuery =  this.houseService.GetAllHouse(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CuurentPage,
+                AllHousesQueryModel.HousesPerPage);
+
+            query.TotalHouseCount = housesQuery.TotalHousesCount;
+            query.Houses = housesQuery.Houses;
+
+            var categoriesList = this.houseService.GetCategories();
+            query.Categories = categoriesList;
+
+
+
+            return View(query);
+                        
         
         }
+
+        
+
 
         [AllowAnonymous]
         [HttpGet]

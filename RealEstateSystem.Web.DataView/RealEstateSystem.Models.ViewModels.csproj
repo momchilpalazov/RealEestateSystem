@@ -14,6 +14,7 @@
     <ProjectReference Include="..\RealEstateSystem.Common\RealEstateSystem.Common.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Data.Models\RealEstateSystem.Data.Models.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
+    <ProjectReference Include="..\RealEstateSystems.Web.Infrastructure\RealEstateSystems.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

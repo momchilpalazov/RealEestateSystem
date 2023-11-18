@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Image = RealEstateSystem.Data.Models.Image;
 
 namespace RealEstateSystems.Web.Infrastructure.Helper
 {
