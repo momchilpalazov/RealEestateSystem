@@ -5,6 +5,7 @@ using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
+using RealEstateSystems.Web.Infrastructure.Helper;
 using RealEstateSystems.Web.Infrastructure.HouseSorting;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,14 @@ namespace RealEstateSystem.Services.Data
 
         private readonly RealEstateSystemDbContext db;
 
+        private readonly GetImageFromDbDecoding getImageFromDbDecoding;
+
         
 
-        public HouseService(RealEstateSystemDbContext db)
+        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding)
         {
             this.db = db;
+            this.getImageFromDbDecoding = fromDbDecoding;
         }
 
         public async Task AddHouse(HouseFormModel house )
@@ -38,7 +42,7 @@ namespace RealEstateSystem.Services.Data
                 Address = house.Address,                              
                 CategoryId = house.CategoryId,
                 ImageUrl = house.ImageUrl,
-                Images = new Image
+                Image = new Image
                 {
                     Content = Encoding.ASCII.GetBytes(house.Images.ToString()),
                     ContentType = "image/jpeg"
@@ -103,7 +107,9 @@ namespace RealEstateSystem.Services.Data
                     Address= h.Address,
                     PricePerMonth = h.PricePerMonth,                   
                     ImageUrl=h.ImageUrl,
-                    IsRented=h.RenterId != null,
+                    ImagesId = h.Image.Id,
+                    DecodedImage = getImageFromDbDecoding.GetImageAsync(h.Image.Id).Result,
+                    IsRented =h.RenterId != null,
 
 
                 }).ToList();
@@ -117,11 +123,6 @@ namespace RealEstateSystem.Services.Data
 
 
             };
-
-
-
-
-
 
             
         }

@@ -1,7 +1,35 @@
-﻿@model HouseServiceModel
+﻿@using RealEstateSystems.Web.Infrastructure.Helper;
+@model HouseServiceModel
 <div class="col-md-4">
     <div class="card mb-3">
-        <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
+
+        @* @{
+
+            byte[] imageBytes;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                var image = await GetImageFromDbDecoding.GetImageAsync(Model.ImageId); // Предполагаме, че имате такъв сервиз
+                image.SaveAsPng(stream);
+                imageBytes = stream.ToArray();
+            }
+
+            string base64String = Convert.ToBase64String(imageBytes);
+
+        } *@
+
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
+        }
+       
+        @* <img src="data:image/png;base64,@base64String" alt="House Image" /> *@
+
+        <img src="@(Model.DecodedImage != null ? "data:image/png;base64," + Model.DecodedImage : "")" alt="House Image" />
+
+        
+       
+
         <div class="card-body text-center">
             <h4>@Model.Title</h4>         
 

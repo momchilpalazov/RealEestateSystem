@@ -38,6 +38,7 @@ namespace RealEestateSystem
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
             builder.Services.AddScoped<LocalSaveImageHelper>();
             builder.Services.AddScoped<DataBaseSaveImageHelper>();
+            builder.Services.AddScoped<GetImageFromDbDecoding>();
 
 
             builder.Services.AddControllersWithViews();

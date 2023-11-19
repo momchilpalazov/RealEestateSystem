@@ -2,6 +2,7 @@
 using SixLabors.ImageSharp;
 
 using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Png;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,31 @@ namespace RealEstateSystems.Web.Infrastructure.Helper
             this.dbContext = dbContext;
         }
 
-        public async Task<Image<Rgba32>> GetImageAsync(int imageId)
+        //public async Task<Image<Rgba32>> GetImageAsync(int imageId)
+        //{
+        //    var imageEntity = await dbContext.Images.FindAsync(imageId);
+
+        //    if (imageEntity != null)
+        //    {
+        //        using (MemoryStream stream = new MemoryStream(imageEntity.Content))
+        //        {
+        //           
+        //            var image = Image.Load<Rgba32>(stream);
+
+        //            
+        //            image.Mutate(x => x.Resize(new ResizeOptions
+        //            {
+        //                Size = new Size(200, 200),
+        //                Mode = ResizeMode.Max
+        //            }));
+
+        //            return image;
+        //        }
+        //    }
+
+        //    return null;
+        //}
+        public async Task<byte[]> GetImageAsync(int imageId)
         {
             var imageEntity = await dbContext.Images.FindAsync(imageId);
 
@@ -28,17 +53,22 @@ namespace RealEstateSystems.Web.Infrastructure.Helper
             {
                 using (MemoryStream stream = new MemoryStream(imageEntity.Content))
                 {
-                    // Декодиране с ImageSharp и обработка на изображението
+                   
                     var image = Image.Load<Rgba32>(stream);
 
-                    // Например, промяна на размера на изображението
+                    
                     image.Mutate(x => x.Resize(new ResizeOptions
                     {
                         Size = new Size(200, 200),
                         Mode = ResizeMode.Max
                     }));
 
-                    return image;
+                   
+                    using (MemoryStream encodedStream = new MemoryStream())
+                    {
+                        image.Save(encodedStream, new PngEncoder());
+                        return encodedStream.ToArray();
+                    }
                 }
             }
 

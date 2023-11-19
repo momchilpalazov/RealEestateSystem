@@ -1,5 +1,7 @@
 ﻿using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystems.Web.Infrastructure.HouseSorting;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,9 @@ namespace RealEstateSystem.Models.ViewModels.House
 
         public int CuurentPage { get; init; } = 1;
 
-        public int TotalHouseCount { get; set; } 
+        public int TotalHouseCount { get; set; }
+
+       
 
         public IEnumerable<HouseServiceModel> Houses { get; set; } = new List<HouseServiceModel>();
 

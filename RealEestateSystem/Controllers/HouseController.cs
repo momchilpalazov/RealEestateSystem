@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using RealEstateSystem.Data;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
@@ -14,29 +15,34 @@ namespace RealEstateSystem.Controllers
 
         private readonly IHouseInterface houseService;
 
-       private readonly DataBaseSaveImageHelper imageService;
+        private readonly DataBaseSaveImageHelper imageService;
+
+        private readonly RealEstateSystemDbContext dbContext;
+
+        private readonly GetImageFromDbDecoding getImageFromDbDecoding;
+
+
        
 
-        public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService)
+        public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService, RealEstateSystemDbContext dbContext, GetImageFromDbDecoding getImageFromDbDecoding)
         {
             this.houseService = houseService;
             this.imageService = imageService;
+            this.dbContext = dbContext;
+            this.getImageFromDbDecoding = getImageFromDbDecoding;
         }
-
-
-
 
 
         [AllowAnonymous]
         [HttpGet]
-        public  IActionResult All([FromQuery] AllHousesQueryModel query )
+        public async Task<IActionResult> AllAsync([FromQuery] AllHousesQueryModel query )
         {
             
             var housesQuery =  this.houseService.GetAllHouse(
                 query.CategoryId,
                 query.SearchTerm,
                 query.Sorting,
-                query.CuurentPage,
+                query.CuurentPage,                
                 AllHousesQueryModel.HousesPerPage);
 
             query.TotalHouseCount = housesQuery.TotalHousesCount;
@@ -47,12 +53,17 @@ namespace RealEstateSystem.Controllers
 
 
 
+            foreach (var house in query.Houses)
+            {
+                
+                house.DecodedImage = await getImageFromDbDecoding.GetImageAsync(house.ImagesId);
+            }
+
+
             return View(query);
                         
         
-        }
-
-        
+        }        
 
 
         [AllowAnonymous]
@@ -99,10 +110,10 @@ namespace RealEstateSystem.Controllers
 
            
             house.Categories= this.houseService.GetCategories();
-             var Image = await this.imageService.SaveImageToDataAsync(image);
+            var Image = await this.imageService.SaveImageToDataAsync(image);
 
             await this.houseService.AddHouse(house);
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
 
            
         }
@@ -132,7 +143,7 @@ namespace RealEstateSystem.Controllers
         [HttpPost]
         public IActionResult Delete(HouseDetailsViewModel house)
         {
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
         }
 
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealEstateSystem.Data.Models
 {
@@ -15,7 +16,8 @@ namespace RealEstateSystem.Data.Models
 
         public House()
         {
-            this.Id = Guid.NewGuid();
+            this.Id = Guid.NewGuid(); 
+            
         }
 
 
@@ -40,7 +42,10 @@ namespace RealEstateSystem.Data.Models
        
         public string? ImageUrl { get; set; }
 
-        public virtual Image? Images { get; set; }
+        
+        
+        public int? ImageId { get; set; }
+        public virtual Image? Image { get; set; }
 
 
         [Required]
@@ -59,10 +64,7 @@ namespace RealEstateSystem.Data.Models
 
         public Guid? RenterId { get; set; } 
 
-        public virtual ApplicationUser? Renter { get; set; } = null!;
-
-
-        
+        public virtual ApplicationUser? Renter { get; set; } = null!;        
 
 
     }

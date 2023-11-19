@@ -1,9 +1,12 @@
-﻿using System;
+﻿using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RealEstateSystem.Data.Models;
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
@@ -17,7 +20,10 @@ namespace RealEstateSystem.Models.ViewModels.House
         public string? Address { get; set; }
 
         [DisplayName("Upload Image")]
-        public int Image { get; set; }
+        public int ImagesId { get; set; }
+
+        public byte[]? DecodedImage { get; set; }
+        //public Image<Rgba32>? DecodedImage { get; set; }        
 
         [DisplayName("Image Url")]
         public string? ImageUrl { get; set; }
@@ -27,6 +33,8 @@ namespace RealEstateSystem.Models.ViewModels.House
 
         [DisplayName("Is Rented")]
         public bool IsRented { get; set; }
+
+        
 
 
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RealEstateSystem.Data.Migrations
 {
-    public partial class InitilaizeDb : Migration
+    public partial class DbInitilazeNew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,6 +59,20 @@ namespace RealEstateSystem.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,7 +208,8 @@ namespace RealEstateSystem.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageId = table.Column<int>(type: "int", nullable: false),
                     PricePerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     AgentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -220,6 +235,12 @@ namespace RealEstateSystem.Data.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Hauses_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -277,6 +298,12 @@ namespace RealEstateSystem.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Hauses_ImageId",
+                table: "Hauses",
+                column: "ImageId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Hauses_RenterId",
                 table: "Hauses",
                 column: "RenterId");
@@ -310,6 +337,9 @@ namespace RealEstateSystem.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

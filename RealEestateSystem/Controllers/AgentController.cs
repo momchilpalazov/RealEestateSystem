@@ -18,10 +18,6 @@ namespace RealEstateSystem.Controllers
         {
             this.agentInterface = agentInterface;
         }
-
-
-
-
        
         public async Task <IActionResult> Become()
         {
@@ -80,7 +76,7 @@ namespace RealEstateSystem.Controllers
 
             await agentInterface.Create(Guid.Parse(userId), becomeAgent.PhoneNumber);
             
-            return RedirectToAction(nameof(HouseController.All), "House");
+            return RedirectToAction(nameof(HouseController.AllAsync), "House");
 
 
         }
