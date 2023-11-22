@@ -28,7 +28,7 @@ namespace RealEstateSystem.Models.ViewModels.House
         public string? ImageUrl { get; set; }
 
         [Display(Name = "Image Upload")]
-        public int Images { get; set; }
+        public int ImagesId { get; set; }
  
 
         [Required]

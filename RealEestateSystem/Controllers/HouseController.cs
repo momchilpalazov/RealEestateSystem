@@ -53,11 +53,11 @@ namespace RealEstateSystem.Controllers
 
 
 
-            foreach (var house in query.Houses)
-            {
+            //foreach (var house in query.Houses)
+            //{
                 
-                house.DecodedImage = await getImageFromDbDecoding.GetImageAsync(house.ImagesId);
-            }
+            //    house.DecodedImage = await getImageFromDbDecoding.GetImageAsync(house.ImagesId);
+            //}
 
 
             return View(query);
@@ -110,7 +110,19 @@ namespace RealEstateSystem.Controllers
 
            
             house.Categories= this.houseService.GetCategories();
-            var Image = await this.imageService.SaveImageToDataAsync(image);
+
+            if (image!=null)
+            {
+                var Image = await this.imageService.SaveImageToDataAsync(image);
+
+                if (Image.HasValue)
+                {
+                    house.ImagesId = Image.Value; 
+                }
+
+            }
+
+           
 
             await this.houseService.AddHouse(house);
             return RedirectToAction(nameof(AllAsync));

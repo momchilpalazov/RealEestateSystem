@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
@@ -21,41 +22,30 @@ namespace RealEstateSystems.Web.Infrastructure.Helper
             this.dbContext = dbContext;
         }
 
-        public async Task<int> SaveImageToDataAsync(IFormFile image)
+        public async Task<int?> SaveImageToDataAsync(IFormFile imageFile)
         {
-            if (image != null && image.Length > 0)
+            if (imageFile != null && imageFile.Length > 0)
             {
-                try
+                using (MemoryStream memoryStream =  new MemoryStream())
                 {
-                    using (var stream = new MemoryStream())
+                    await imageFile.CopyToAsync(memoryStream);
+
+                    var image = new Image
                     {
-                        await image.CopyToAsync(stream);
-                        var imageEntity = new Image
-                        {
-                            Content = stream.ToArray(),
-                            ContentType = image.ContentType
-                        };
+                        Content = memoryStream.ToArray(),
+                        ContentType = imageFile.ContentType
+                        
+                    };
 
-                        dbContext.Images.Add(imageEntity);
-                        await dbContext.SaveChangesAsync();
+                    dbContext.Images.Add(image);
+                    await dbContext.SaveChangesAsync();
 
-                        return imageEntity.Id;
-
-                    }
-                }
-                catch (Exception)
-                {
-
-                    throw;
+                    return image.Id;
                 }
             }
 
-            return 0;
+            return null; 
         }
-
-
-
-
 
 
     }

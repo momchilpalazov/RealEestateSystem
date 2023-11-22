@@ -41,12 +41,8 @@ namespace RealEstateSystem.Services.Data
                 PricePerMonth = house.PricePerMonth,               
                 Address = house.Address,                              
                 CategoryId = house.CategoryId,
-                ImageUrl = house.ImageUrl,
-                Image = new Image
-                {
-                    Content = Encoding.ASCII.GetBytes(house.Images.ToString()),
-                    ContentType = "image/jpeg"
-                },
+                ImageUrl = house.ImageUrl, 
+                ImageId = house.ImagesId,
                 AgentId = AgentId                
 
             };           
@@ -106,9 +102,7 @@ namespace RealEstateSystem.Services.Data
                     Title = h.Title,
                     Address= h.Address,
                     PricePerMonth = h.PricePerMonth,                   
-                    ImageUrl=h.ImageUrl,
-                    ImagesId = h.Image.Id,
-                    DecodedImage = getImageFromDbDecoding.GetImageAsync(h.Image.Id).Result,
+                    ImageUrl=h.ImageUrl,                    
                     IsRented =h.RenterId != null,
 
 
