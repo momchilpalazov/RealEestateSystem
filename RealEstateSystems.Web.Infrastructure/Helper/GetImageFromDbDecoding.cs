@@ -21,55 +21,14 @@ namespace RealEstateSystems.Web.Infrastructure.Helper
             this.dbContext = dbContext;
         }
 
-        //public async Task<Image<Rgba32>> GetImageAsync(int imageId)
-        //{
-        //    var imageEntity = await dbContext.Images.FindAsync(imageId);
-
-        //    if (imageEntity != null)
-        //    {
-        //        using (MemoryStream stream = new MemoryStream(imageEntity.Content))
-        //        {
-        //           
-        //            var image = Image.Load<Rgba32>(stream);
-
-        //            
-        //            image.Mutate(x => x.Resize(new ResizeOptions
-        //            {
-        //                Size = new Size(200, 200),
-        //                Mode = ResizeMode.Max
-        //            }));
-
-        //            return image;
-        //        }
-        //    }
-
-        //    return null;
-        //}
+        
         public async Task<byte[]> GetImageAsync(int imageId)
         {
             var imageEntity = await dbContext.Images.FindAsync(imageId);
 
             if (imageEntity != null)
             {
-                using (MemoryStream stream = new MemoryStream(imageEntity.Content))
-                {
-                   
-                    var image = Image.Load<Rgba32>(stream);
-
-                    
-                    image.Mutate(x => x.Resize(new ResizeOptions
-                    {
-                        Size = new Size(200, 200),
-                        Mode = ResizeMode.Max
-                    }));
-
-                   
-                    using (MemoryStream encodedStream = new MemoryStream())
-                    {
-                        image.Save(encodedStream, new PngEncoder());
-                        return encodedStream.ToArray();
-                    }
-                }
+               return imageEntity?.Content;
             }
 
             return null;

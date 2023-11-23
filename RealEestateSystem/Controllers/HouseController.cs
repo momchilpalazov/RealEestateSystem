@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RealEstateSystem.Data;
+using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
@@ -35,7 +36,7 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> AllAsync([FromQuery] AllHousesQueryModel query )
+        public async Task<IActionResult> AllAsync([FromQuery] AllHousesQueryModel query,int imageId )
         {
             
             var housesQuery =  this.houseService.GetAllHouse(
@@ -48,18 +49,8 @@ namespace RealEstateSystem.Controllers
             query.TotalHouseCount = housesQuery.TotalHousesCount;
             query.Houses = housesQuery.Houses;
 
-            var categoriesList = this.houseService.GetCategories();
-            query.Categories = categoriesList;
-
-
-
-            //foreach (var house in query.Houses)
-            //{
-                
-            //    house.DecodedImage = await getImageFromDbDecoding.GetImageAsync(house.ImagesId);
-            //}
-
-
+            var categoriesList = this.houseService.GetCategories();    
+            query.Categories = categoriesList;   
             return View(query);
                         
         
@@ -125,7 +116,7 @@ namespace RealEstateSystem.Controllers
            
 
             await this.houseService.AddHouse(house);
-            return RedirectToAction(nameof(AllAsync));
+            return RedirectToAction("All");
 
            
         }

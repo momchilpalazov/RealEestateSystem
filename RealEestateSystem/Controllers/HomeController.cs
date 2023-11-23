@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models;
 using RealEstateSystem.Models.ViewModels.Home;
+using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data;
 using RealEstateSystem.Services.Data.Interfaces;
+using RealEstateSystems.Web.Infrastructure.Helper;
 using System.Diagnostics;
 
 namespace RealEstateSystem.Controllers
@@ -12,9 +15,12 @@ namespace RealEstateSystem.Controllers
 
         private readonly IHouseInterface houseInteraface;
 
-        public HomeController(IHouseInterface houseInterface)
+        private readonly GetImageFromDbDecoding getImageFromDbDecoding;
+
+        public HomeController(IHouseInterface houseInterface,GetImageFromDbDecoding getImageFromDbDecoding)
         {
             this.houseInteraface = houseInterface;
+            this.getImageFromDbDecoding = getImageFromDbDecoding;
             
         }
        
@@ -22,6 +28,14 @@ namespace RealEstateSystem.Controllers
         public async Task<IActionResult> Index()
         {
             var houses = await this.houseInteraface.LastThreeHouses();
+
+
+            foreach (var house in houses)
+            {
+                house.ImageData = await this.getImageFromDbDecoding.GetImageAsync(house.ImageId??0);
+            }           
+
+           
 
             return View(houses);
         }

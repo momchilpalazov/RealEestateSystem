@@ -28,16 +28,6 @@ namespace RealEstateSystem.Data.Configurations
                 .WithMany(a => a.ManageHauses)
                 .HasForeignKey(h => h.AgentId)
                 .OnDelete(DeleteBehavior.Restrict);
-            //builder
-            //    .HasOne(h => h.Image)
-            //    .WithMany()
-            //    .HasForeignKey(h => h.ImageId)
-            //    .OnDelete(DeleteBehavior.Restrict); // Променете DeleteBehavior според вашите изисквания
-
-
-
-
-
 
 
             builder.HasData(GetHauses());

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
+using RealEstateSystems.Web.Infrastructure.Extensions;
 using RealEstateSystems.Web.Infrastructure.Helper;
 using RealEstateSystems.Web.Infrastructure.HouseSorting;
 using System;
@@ -18,16 +20,22 @@ namespace RealEstateSystem.Services.Data
     public class HouseService : IHouseInterface
     {
 
-        private readonly RealEstateSystemDbContext db;
+        private readonly RealEstateSystemDbContext db;       
 
         private readonly GetImageFromDbDecoding getImageFromDbDecoding;
 
-        
+        private readonly IServiceProvider serviceProvider;
 
-        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding)
+       
+
+
+
+        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding,IServiceProvider serviceProvider )
         {
             this.db = db;
             this.getImageFromDbDecoding = fromDbDecoding;
+            this.serviceProvider = serviceProvider;          
+           
         }
 
         public async Task AddHouse(HouseFormModel house )
@@ -102,8 +110,10 @@ namespace RealEstateSystem.Services.Data
                     Title = h.Title,
                     Address= h.Address,
                     PricePerMonth = h.PricePerMonth,                   
-                    ImageUrl=h.ImageUrl,                    
+                    ImageUrl=h.ImageUrl,               
                     IsRented =h.RenterId != null,
+                    ImageData = this.getImageFromDbDecoding.GetImageAsync(h.ImageId??0).Result
+                   
 
 
                 }).ToList();
@@ -136,17 +146,21 @@ namespace RealEstateSystem.Services.Data
 
         public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
         {
-            var houses= await this.db.Hauses.OrderByDescending(x=>x.Id).Take(3).Select(h=>new HouseIndexServiceModel
+            var houses = await this.db.Hauses.OrderByDescending(x => x.Id).Take(3).Select(h => new HouseIndexServiceModel
 
             {
-                Id=h.Id,
-                Title=h.Title,
-                ImageUrl=h.ImageUrl
-            
+
+                Id = h.Id,
+                Title = h.Title,
+                ImageUrl = h.ImageUrl,
+                ImageId = h.ImageId,
+
+
             }).ToListAsync();
 
-            return houses;  
-            
+            return houses;
+
+
         }
     }
 }

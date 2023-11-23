@@ -12,8 +12,12 @@ namespace RealEstateSystem.Models.ViewModels.House
 
         public string Title { get; set; }=null!;
 
-        public string ImageUrl { get; set; }=null!;
-        
+        public string? ImageUrl { get; set; }
+
+        public int? ImageId { get; set; }    
+
+        public byte[]?ImageData { get; set; }       
+
 
 
     }

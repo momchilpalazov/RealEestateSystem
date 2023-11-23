@@ -21,6 +21,10 @@ namespace RealEestateSystem
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+           
+
+
+
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");                
@@ -39,6 +43,7 @@ namespace RealEestateSystem
             builder.Services.AddScoped<LocalSaveImageHelper>();
             builder.Services.AddScoped<DataBaseSaveImageHelper>();
             builder.Services.AddScoped<GetImageFromDbDecoding>();
+           
 
 
             builder.Services.AddControllersWithViews();

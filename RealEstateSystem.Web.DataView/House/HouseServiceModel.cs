@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RealEstateSystem.Data.Models;
+using Image = RealEstateSystem.Data.Models.Image;
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
@@ -19,11 +20,12 @@ namespace RealEstateSystem.Models.ViewModels.House
 
         public string? Address { get; set; }
 
-        [DisplayName("Upload Image")]
+      
         public int ImagesId { get; set; }
 
-        public byte[]? DecodedImage { get; set; }
-        //public Image<Rgba32>? DecodedImage { get; set; }        
+        [DisplayName("Image Data")]
+        public byte[]? ImageData { get; set; }
+       
 
         [DisplayName("Image Url")]
         public string? ImageUrl { get; set; }

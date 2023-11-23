@@ -18,5 +18,7 @@ namespace RealEstateSystem.Data.Models
         public string? ContentType { get; set; }
 
         public virtual House?  House { get; set; }
+
+
     }
 }
