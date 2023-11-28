@@ -16,5 +16,10 @@ namespace RealEstateSystem.Services.Data.Interfaces
         HouseQueryServiceModel GetAllHouse(int? categoryId=null,string? searchTerm=null,HouseSorting sorting= HouseSorting.Newest,int currentPage=1,int housesPerPage=1);
         ICollection<CategoryHouseServiceViewModel> GetCategories();
         Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses();
+
+        Task<IEnumerable<HouseServiceModel>>GetAllHouseByAgentId(Guid agentId);
+
+        Task<IEnumerable<HouseServiceModel>>GetAllHouseByUserId(Guid userId);
+
     }
 }

@@ -5,7 +5,9 @@ using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
+using RealEstateSystem.Services.Data;
 using RealEstateSystem.Services.Data.Interfaces;
+using RealEstateSystems.Web.Infrastructure.Extensions;
 using RealEstateSystems.Web.Infrastructure.Helper;
 
 namespace RealEstateSystem.Controllers
@@ -22,15 +24,18 @@ namespace RealEstateSystem.Controllers
 
         private readonly GetImageFromDbDecoding getImageFromDbDecoding;
 
+        private readonly IAgentInterface agent;
+
 
        
 
-        public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService, RealEstateSystemDbContext dbContext, GetImageFromDbDecoding getImageFromDbDecoding)
+        public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService, RealEstateSystemDbContext dbContext, GetImageFromDbDecoding getImageFromDbDecoding,IAgentInterface agent)
         {
             this.houseService = houseService;
             this.imageService = imageService;
             this.dbContext = dbContext;
             this.getImageFromDbDecoding = getImageFromDbDecoding;
+            this.agent = agent;
         }
 
 
@@ -59,9 +64,28 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult MineHouse()
+        public async Task <IActionResult> MineHouse()
         {
-            return View(new AllHousesQueryModel());
+            IEnumerable<HouseServiceModel> myHouses = null;
+
+            var userId = this.User.GetId(); 
+
+            if (await agent.ExistById(Guid.Parse(userId)))
+            {
+                var currentAgent = await agent.GetAgentId(Guid.Parse(userId));
+
+                myHouses=await this.houseService.GetAllHouseByAgentId(Guid.Parse(currentAgent));                
+
+               
+            }
+            else
+            {
+                myHouses = await this.houseService.GetAllHouseByUserId(Guid.Parse(userId));
+            }          
+
+
+            return View(myHouses);
+           
         }
 
 

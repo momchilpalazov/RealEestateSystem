@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models;
-using RealEstateSystem.Models.ViewModels.Home;
-using RealEstateSystem.Models.ViewModels.House;
-using RealEstateSystem.Services.Data;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Helper;
 using System.Diagnostics;

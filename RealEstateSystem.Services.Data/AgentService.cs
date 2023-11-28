@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Services.Data.Interfaces;
@@ -50,11 +51,25 @@ namespace RealEstateSystem.Services.Data
             return existUser;
         }
 
+       
+
         public async Task<bool> UserHasRent(Guid userId)
         {
             var hasRent = await this.db.Hauses.AnyAsync(x => x.RenterId == userId);  
 
             return hasRent;
+        }
+
+       
+
+        public async Task<string> GetAgentId(Guid agentId)
+        {
+            var agent = await this.db.Agents.Where(x => x.UserId == agentId).Select(x => x.Id).FirstOrDefaultAsync();
+
+            return  agent.ToString();
+
+           
+           
         }
     }
 }

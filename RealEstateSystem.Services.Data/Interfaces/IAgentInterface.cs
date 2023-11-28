@@ -15,5 +15,6 @@ namespace RealEstateSystem.Services.Data.Interfaces
         Task<bool> UserHasRent(Guid userId);
 
         Task  Create(Guid userId, string phoneNumber);
+        Task <string> GetAgentId(Guid agentId);
     }
 }

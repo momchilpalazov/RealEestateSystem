@@ -1,19 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
-using RealEstateSystems.Web.Infrastructure.Extensions;
 using RealEstateSystems.Web.Infrastructure.Helper;
 using RealEstateSystems.Web.Infrastructure.HouseSorting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealEstateSystem.Services.Data
 {
@@ -130,6 +122,42 @@ namespace RealEstateSystem.Services.Data
 
             
         }
+
+        public async Task<IEnumerable<HouseServiceModel>> GetAllHouseByAgentId(Guid agentId)
+        {
+            var houses =  this.db.Hauses.Where(a => a.AgentId == agentId).ToListAsync();
+
+            return ProjectToModel(houses);
+           
+        }
+        public async Task<IEnumerable<HouseServiceModel>> GetAllHouseByUserId(Guid userId)
+        {
+            var user = this.db.Hauses.Where(u => u.RenterId == userId).ToListAsync();
+
+            return ProjectToModel(user);
+
+
+        }
+
+        private IEnumerable<HouseServiceModel> ProjectToModel(Task<List<House>> houses)
+        {
+
+            var housesModel = houses.Result.Select(h => new HouseServiceModel
+            {
+                Id = h.Id,
+                Title = h.Title,
+                Address = h.Address,
+                PricePerMonth = h.PricePerMonth,
+                ImageUrl = h.ImageUrl,
+                IsRented = h.RenterId != null,
+                ImageData = this.getImageFromDbDecoding.GetImageAsync(h.ImageId ?? 0).Result
+            });
+
+            return housesModel;
+            
+        }
+
+        
 
         public ICollection<CategoryHouseServiceViewModel> GetCategories()
         {
