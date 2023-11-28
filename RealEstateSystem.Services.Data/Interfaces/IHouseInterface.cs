@@ -21,5 +21,9 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task<IEnumerable<HouseServiceModel>>GetAllHouseByUserId(Guid userId);
 
+        Task<HouseDetailsViewModel?> GetHouseDetailsById(Guid agentId);
+
+        Task<bool> Exist(Guid agentId);
+
     }
 }

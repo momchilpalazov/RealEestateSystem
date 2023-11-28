@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
+using RealEstateSystem.Models.ViewModels.Agents;
 using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
@@ -55,7 +56,11 @@ namespace RealEstateSystem.Services.Data
             
         }
 
-        
+        public Task<bool> Exist(Guid agentId)
+        {
+            return this.db.Hauses.AnyAsync(h => h.Id == agentId);
+           
+        }
 
         public HouseQueryServiceModel GetAllHouse(int? categoryId=null  , string? searchTerm = null, HouseSorting sorting = HouseSorting.Newest, int currentPage = 1, int housesPerPage = 1)
         {
@@ -125,37 +130,24 @@ namespace RealEstateSystem.Services.Data
 
         public async Task<IEnumerable<HouseServiceModel>> GetAllHouseByAgentId(Guid agentId)
         {
-            var houses =  this.db.Hauses.Where(a => a.AgentId == agentId).ToListAsync();
+            
 
-            return ProjectToModel(houses);
+
+            var houses = await  this.db.Hauses.Where(a => a.AgentId == agentId).ToListAsync();
+
+           return ProjectToModel(Task.FromResult(houses));
            
         }
         public async Task<IEnumerable<HouseServiceModel>> GetAllHouseByUserId(Guid userId)
         {
-            var user = this.db.Hauses.Where(u => u.RenterId == userId).ToListAsync();
+            var houses = await this.db.Hauses.Where(u => u.RenterId == userId).ToListAsync();
 
-            return ProjectToModel(user);
+           return ProjectToModel(Task.FromResult(houses));
 
 
         }
 
-        private IEnumerable<HouseServiceModel> ProjectToModel(Task<List<House>> houses)
-        {
-
-            var housesModel = houses.Result.Select(h => new HouseServiceModel
-            {
-                Id = h.Id,
-                Title = h.Title,
-                Address = h.Address,
-                PricePerMonth = h.PricePerMonth,
-                ImageUrl = h.ImageUrl,
-                IsRented = h.RenterId != null,
-                ImageData = this.getImageFromDbDecoding.GetImageAsync(h.ImageId ?? 0).Result
-            });
-
-            return housesModel;
-            
-        }
+       
 
         
 
@@ -170,6 +162,33 @@ namespace RealEstateSystem.Services.Data
 
             return categories;
             
+        }
+
+        public async Task<HouseDetailsViewModel?> GetHouseDetailsById(Guid agentId)
+        {
+            var houseDetailsById=await this.db.Hauses.Where(h=>h.Id==agentId).Select(h=>new HouseDetailsViewModel
+            {
+                Id = h.Id,
+                Title = h.Title,
+                Address = h.Address,
+                PricePerMonth = h.PricePerMonth,
+                ImageUrl = h.ImageUrl,
+                IsRented = h.RenterId != null,
+                ImageData = this.getImageFromDbDecoding.GetImageAsync(h.ImageId ?? 0).Result,
+                Description = h.Description,
+                CategoryName = h.Category.Name,
+                AgentName = new AgentServiceViewModel
+                {
+                    
+                    PhoneNumber = h.Agent.PhoneNumber,
+                    Email = h.Agent.User.Email
+                }
+            }).FirstOrDefaultAsync();
+
+            return houseDetailsById;           
+
+
+           
         }
 
         public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
@@ -188,6 +207,25 @@ namespace RealEstateSystem.Services.Data
 
             return houses;
 
+
+        }
+
+
+        private IEnumerable<HouseServiceModel> ProjectToModel(Task<List<House>> houses)
+        {
+
+            var housesModel = houses.Result.Select(h => new HouseServiceModel
+            {
+                Id = h.Id,
+                Title = h.Title,
+                Address = h.Address,
+                PricePerMonth = h.PricePerMonth,
+                ImageUrl = h.ImageUrl,
+                IsRented = h.RenterId != null,
+                ImageData = this.getImageFromDbDecoding.GetImageAsync(h.ImageId ?? 0).Result
+            });
+
+            return housesModel;
 
         }
     }

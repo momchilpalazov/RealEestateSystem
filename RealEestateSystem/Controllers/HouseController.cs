@@ -41,10 +41,10 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> AllAsync([FromQuery] AllHousesQueryModel query,int imageId )
+        public  IActionResult AllAsync([FromQuery] AllHousesQueryModel query,int imageId )
         {
             
-            var housesQuery =  this.houseService.GetAllHouse(
+            var housesQuery =   this.houseService.GetAllHouse(
                 query.CategoryId,
                 query.SearchTerm,
                 query.Sorting,
@@ -54,9 +54,9 @@ namespace RealEstateSystem.Controllers
             query.TotalHouseCount = housesQuery.TotalHousesCount;
             query.Houses = housesQuery.Houses;
 
-            var categoriesList = this.houseService.GetCategories();    
+            var categoriesList =  this.houseService.GetCategories();    
             query.Categories = categoriesList;   
-            return View(query);
+            return  View(query);
                         
         
         }        
@@ -66,22 +66,38 @@ namespace RealEstateSystem.Controllers
         [HttpGet]
         public async Task <IActionResult> MineHouse()
         {
-            IEnumerable<HouseServiceModel> myHouses = null;
+            IEnumerable<HouseServiceModel>? myHouses = null;
 
             var userId = this.User.GetId(); 
 
-            if (await agent.ExistById(Guid.Parse(userId)))
+
+            if (userId == null)
+
             {
-                var currentAgent = await agent.GetAgentId(Guid.Parse(userId));
-
-                myHouses=await this.houseService.GetAllHouseByAgentId(Guid.Parse(currentAgent));                
-
-               
+                return RedirectToAction("Login", "Account");
             }
-            else
+
+            
+
+            if (userId != null)
             {
-                myHouses = await this.houseService.GetAllHouseByUserId(Guid.Parse(userId));
-            }          
+                if (await agent.ExistById(Guid.Parse(userId)))
+                {
+                    var currentAgent = await agent.GetAgentId(Guid.Parse(userId));
+
+                    myHouses = await this.houseService.GetAllHouseByAgentId(Guid.Parse(currentAgent));
+
+
+                }
+                else
+                {
+                    myHouses = await this.houseService.GetAllHouseByUserId(Guid.Parse(userId));
+                }
+
+
+            }    
+
+           
 
 
             return View(myHouses);
@@ -91,9 +107,17 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(Guid id)
         {
-            return View(new HouseDetailsViewModel());
+            if (await houseService.Exist(id)==false)
+            {
+                return BadRequest();
+
+            }
+
+            var house= await this.houseService.GetHouseDetailsById(id);
+
+            return View(house);            
         }
 
 

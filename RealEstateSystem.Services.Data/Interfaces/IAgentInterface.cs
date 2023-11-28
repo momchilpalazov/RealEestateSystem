@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealEstateSystem.Models.ViewModels.House;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task  Create(Guid userId, string phoneNumber);
         Task <string> GetAgentId(Guid agentId);
+
+
     }
 }
