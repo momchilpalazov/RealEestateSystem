@@ -171,15 +171,35 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(Guid id,[FromQuery] HouseFormModel model)
         {
-            return View(new HouseFormModel());
+
+            if (await houseService.Exist(id) == false)
+            {
+                return Unauthorized();
+
+            }
+
+            if (await houseService.HasAgentWithId(id, new Guid(this.User.GetId())) == false)
+            {
+                return BadRequest();    
+
+            }
+
+            var house = await this.houseService.EditGetHouseById(id);
+
+            return View(house);
+
+           
         }
 
         
         [HttpPost]
         public IActionResult Edit(int id, HouseFormModel house)
         {
+
+
+
             return RedirectToAction(nameof(Details));
         }
 

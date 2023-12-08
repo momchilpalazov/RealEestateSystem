@@ -56,6 +56,30 @@ namespace RealEstateSystem.Services.Data
             
         }
 
+        public Task<HouseFormModel?> EditGetHouseById(Guid houseId)
+        {
+            var house=this.db.Hauses.Where(h=>h.Id==houseId).Select(h=> new HouseFormModel 
+            {
+                Id = h.Id,
+                Title = h.Title,
+                Address = h.Address,
+                PricePerMonth = h.PricePerMonth,
+                ImageUrl = h.ImageUrl,
+                Description = h.Description,
+                CategoryId = h.CategoryId,
+                ImagesId = h.ImageId ?? 0,
+                Categories = this.db.Categories.Select(c => new CategoryHouseServiceViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList()
+            }).FirstOrDefaultAsync();
+
+            return house;        
+            
+            
+        }
+
         public Task<bool> Exist(Guid agentId)
         {
             return this.db.Hauses.AnyAsync(h => h.Id == agentId);
@@ -189,6 +213,27 @@ namespace RealEstateSystem.Services.Data
 
 
            
+        }
+
+        public async Task<bool> HasAgentWithId(Guid agentId, Guid currentUserId)
+        {
+            var house=await this.db.Hauses.FindAsync(agentId);
+            var agent = await this.db.Agents.Where(a => a.Id == house.AgentId).FirstOrDefaultAsync();
+
+            if (agent==null)
+            {
+                return false;
+            }
+            
+            if (agent.UserId!=currentUserId)
+            {
+                return false;
+            }
+
+            return true;    
+
+            
+            
         }
 
         public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()

@@ -25,5 +25,12 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task<bool> Exist(Guid agentId);
 
+        //Implement "Edit House" page
+
+        Task<HouseFormModel?> EditGetHouseById(Guid houseId);
+
+        //Has AgentWithId
+        Task<bool> HasAgentWithId(Guid agentId,Guid currentUserId);
+
     }
 }
