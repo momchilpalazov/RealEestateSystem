@@ -29,6 +29,8 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task<HouseFormModel?> EditGetHouseById(Guid houseId);
 
+        Task EditSaveHouse(Guid Id,HouseFormModel house);
+
         //Has AgentWithId
         Task<bool> HasAgentWithId(Guid agentId,Guid currentUserId);
 

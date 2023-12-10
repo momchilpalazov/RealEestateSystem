@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Agents;
@@ -17,17 +18,20 @@ namespace RealEstateSystem.Services.Data
 
         private readonly GetImageFromDbDecoding getImageFromDbDecoding;
 
+        private readonly DataBaseSaveImageHelper dataBaseSaveImageHelper;
+
         private readonly IServiceProvider serviceProvider;
 
        
 
 
 
-        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding,IServiceProvider serviceProvider )
+        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding,IServiceProvider serviceProvider,DataBaseSaveImageHelper dataBaseSaveImageHelper )
         {
             this.db = db;
             this.getImageFromDbDecoding = fromDbDecoding;
-            this.serviceProvider = serviceProvider;          
+            this.serviceProvider = serviceProvider;  
+            this.dataBaseSaveImageHelper = dataBaseSaveImageHelper;
            
         }
 
@@ -67,7 +71,8 @@ namespace RealEstateSystem.Services.Data
                 ImageUrl = h.ImageUrl,
                 Description = h.Description,
                 CategoryId = h.CategoryId,
-                ImagesId = h.ImageId ?? 0,
+                ImagesId = h.ImageId ?? 0,                
+                //ImageData = this.getImageFromDbDecoding.GetImageAsync(h.ImageId ?? 0).Result,
                 Categories = this.db.Categories.Select(c => new CategoryHouseServiceViewModel
                 {
                     Id = c.Id,
@@ -80,9 +85,39 @@ namespace RealEstateSystem.Services.Data
             
         }
 
-        public Task<bool> Exist(Guid agentId)
+        public async Task EditSaveHouse(Guid Id, HouseFormModel house )
         {
-            return this.db.Hauses.AnyAsync(h => h.Id == agentId);
+            var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
+
+            var houseEntity = await this.db.Hauses.FindAsync(house.Id);
+
+            houseEntity.Id = house.Id;
+            houseEntity.Title = house.Title;
+            houseEntity.Address = house.Address;
+            houseEntity.PricePerMonth = house.PricePerMonth;
+            houseEntity.Description = house.Description;
+            houseEntity.CategoryId = house.CategoryId;
+            houseEntity.ImageUrl = house.ImageUrl;
+            houseEntity.ImageId = house.ImagesId;
+            houseEntity.AgentId = AgentId;
+            houseEntity.RenterId = null;
+            Category? categories = db.Categories.Where(c => c.Id == house.CategoryId).Select(c => new Category
+
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).FirstOrDefault();
+
+            houseEntity.Category = categories;
+
+            await this.db.SaveChangesAsync();
+
+                    
+        }
+
+        public Task<bool> Exist(Guid Id)
+        {
+            return this.db.Hauses.AnyAsync(h => h.Id == Id);
            
         }
 

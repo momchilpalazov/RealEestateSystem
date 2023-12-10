@@ -171,7 +171,7 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id,[FromQuery] HouseFormModel model)
+        public async Task<IActionResult> Edit(Guid id)
         {
 
             if (await houseService.Exist(id) == false)
@@ -186,7 +186,18 @@ namespace RealEstateSystem.Controllers
 
             }
 
+            
+
+
             var house = await this.houseService.EditGetHouseById(id);
+
+            if(house.ImagesId!=null)
+            {
+
+                house.ImageData = this.getImageFromDbDecoding.GetImageAsync(house.ImagesId ?? 0).Result;
+            
+            
+            }
 
             return View(house);
 
@@ -195,12 +206,49 @@ namespace RealEstateSystem.Controllers
 
         
         [HttpPost]
-        public IActionResult Edit(int id, HouseFormModel house)
+        public async Task <IActionResult> EditPost(Guid Id, HouseFormModel house,IFormFile image)
         {
 
+            if (await houseService.Exist(Id) == false)
+            {
+                return View();
+
+            }
+
+            if (await houseService.HasAgentWithId(Id, new Guid(this.User.GetId())) == false)
+            {
+                return Unauthorized();
+
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(house);
+
+            }
+
+            if (image != null)
+            {
+                var imageEdit = await this.imageService.SaveImageToDataAsync(image);
+
+                if (imageEdit.HasValue)
+                {
+                    house.ImagesId = imageEdit.Value;
+                }
+
+            }       
 
 
-            return RedirectToAction(nameof(Details));
+
+
+
+            await this.houseService.EditSaveHouse(Id,house);
+            return RedirectToAction("All");
+
+
+
+
+            
         }
 
         [AllowAnonymous]

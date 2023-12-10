@@ -3,6 +3,7 @@ using static RealEstateSystem.Common.ViewModelValidationConstants.HouseFormModel
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using RealEstateSystem.Data.Models;
+using System.ComponentModel;
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
@@ -28,8 +29,12 @@ namespace RealEstateSystem.Models.ViewModels.House
         public string? ImageUrl { get; set; }
 
         [Display(Name = "Image Upload")]
-        public int ImagesId { get; set; }
- 
+        public int? ImagesId { get; set; }
+
+
+        [DisplayName("Image Data")]
+        public byte[]? ImageData { get; set; }
+
 
         [Required]
         [Display(Name = "Price Per Month")]
