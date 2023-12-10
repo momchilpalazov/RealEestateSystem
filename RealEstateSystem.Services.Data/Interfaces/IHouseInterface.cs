@@ -23,15 +23,12 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task<HouseDetailsViewModel?> GetHouseDetailsById(Guid agentId);
 
-        Task<bool> Exist(Guid agentId);
-
-        //Implement "Edit House" page
+        Task<bool> Exist(Guid agentId);      
 
         Task<HouseFormModel?> EditGetHouseById(Guid houseId);
 
-        Task EditSaveHouse(Guid Id,HouseFormModel house);
-
-        //Has AgentWithId
+        Task EditSaveHouse(Guid Id,HouseEditFormModel house);
+       
         Task<bool> HasAgentWithId(Guid agentId,Guid currentUserId);
 
     }

@@ -36,9 +36,7 @@
     </div>
     <hr />
 
-    <div class="form-group">
-
-        
+    <div class="form-group">        
 
         <label asp-for="ImagesId" class="form-control">
             <label>Upload Image</label>
@@ -48,16 +46,15 @@
 
         @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {
-            <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
+            <img class="card-img-top" src="@Model.ImageUrl" alt="House Image" sizes="50">
         }
 
         @if (Model.ImageData != null && Model.ImageData.Length > 0)
         {
-            <img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData)" alt="Image" />
+            <img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData)" alt="Image" sizes="50"/>
         }
 
         <span asp-validation-for="ImagesId" class="text-danger"></span>
-
 
     </div>
 
@@ -85,3 +82,8 @@
     <button type="submit" class="btn btn-primary">Save</button>
 
 </form>
+
+       @section Scripts {
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

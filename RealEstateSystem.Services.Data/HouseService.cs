@@ -50,11 +50,8 @@ namespace RealEstateSystem.Services.Data
                 ImageId = house.ImagesId,
                 AgentId = AgentId                
 
-            };           
+            };       
 
-            
-            
-            
             await this.db.Hauses.AddAsync(houseEntity);
             await this.db.SaveChangesAsync();
             
@@ -71,8 +68,8 @@ namespace RealEstateSystem.Services.Data
                 ImageUrl = h.ImageUrl,
                 Description = h.Description,
                 CategoryId = h.CategoryId,
-                ImagesId = h.ImageId ?? 0,                
-                //ImageData = this.getImageFromDbDecoding.GetImageAsync(h.ImageId ?? 0).Result,
+                ImagesId = h.ImageId ?? 0,     
+               
                 Categories = this.db.Categories.Select(c => new CategoryHouseServiceViewModel
                 {
                     Id = c.Id,
@@ -85,7 +82,7 @@ namespace RealEstateSystem.Services.Data
             
         }
 
-        public async Task EditSaveHouse(Guid Id, HouseFormModel house )
+        public async Task EditSaveHouse(Guid Id, HouseEditFormModel house )
         {
             var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
 
@@ -142,8 +139,6 @@ namespace RealEstateSystem.Services.Data
                     s.Title.ToLower().Contains(searchTerm.ToLower()) ||
                     s.Description.ToLower().Contains(searchTerm.ToLower())
                     );
-
-
             }
 
 
@@ -152,7 +147,6 @@ namespace RealEstateSystem.Services.Data
                 HouseSorting.Price => housesQuery.OrderBy(h => h.PricePerMonth),
                 HouseSorting.NotRentedFirst => housesQuery.OrderBy(r => r.RenterId != null).ThenByDescending(h => h.Id),
                 _ => housesQuery.OrderByDescending(h => h.Id)
-
 
             };
 
@@ -181,18 +175,15 @@ namespace RealEstateSystem.Services.Data
                 TotalHousesCount = totalHouse,
                 Houses = houses
 
-
             };
 
             
         }
 
         public async Task<IEnumerable<HouseServiceModel>> GetAllHouseByAgentId(Guid agentId)
-        {
-            
+        {      
 
-
-            var houses = await  this.db.Hauses.Where(a => a.AgentId == agentId).ToListAsync();
+           var houses = await  this.db.Hauses.Where(a => a.AgentId == agentId).ToListAsync();
 
            return ProjectToModel(Task.FromResult(houses));
            
@@ -201,12 +192,9 @@ namespace RealEstateSystem.Services.Data
         {
             var houses = await this.db.Hauses.Where(u => u.RenterId == userId).ToListAsync();
 
-           return ProjectToModel(Task.FromResult(houses));
+            return ProjectToModel(Task.FromResult(houses));
 
-
-        }
-
-       
+        }      
 
         
 
@@ -244,10 +232,8 @@ namespace RealEstateSystem.Services.Data
                 }
             }).FirstOrDefaultAsync();
 
-            return houseDetailsById;           
+            return houseDetailsById;       
 
-
-           
         }
 
         public async Task<bool> HasAgentWithId(Guid agentId, Guid currentUserId)
@@ -267,14 +253,11 @@ namespace RealEstateSystem.Services.Data
 
             return true;    
 
-            
-            
         }
 
         public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
         {
             var houses = await this.db.Hauses.OrderByDescending(x => x.Id).Take(3).Select(h => new HouseIndexServiceModel
-
             {
 
                 Id = h.Id,
@@ -286,7 +269,6 @@ namespace RealEstateSystem.Services.Data
             }).ToListAsync();
 
             return houses;
-
 
         }
 

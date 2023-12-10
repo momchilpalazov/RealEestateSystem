@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
-    public class HouseFormModel
+    public class HouseEditFormModel
     {
 
         public Guid Id { get; set; }
@@ -24,7 +24,7 @@ namespace RealEstateSystem.Models.ViewModels.House
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; } = null!;
 
-       
+        
         [Display(Name = "Add Image Link")]
         public string? ImageUrl { get; set; }
 

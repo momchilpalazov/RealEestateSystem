@@ -95,9 +95,7 @@ namespace RealEstateSystem.Controllers
                 }
 
 
-            }    
-
-           
+            }               
 
 
             return View(myHouses);
@@ -185,7 +183,6 @@ namespace RealEstateSystem.Controllers
                 return BadRequest();    
 
             }
-
             
 
 
@@ -194,19 +191,17 @@ namespace RealEstateSystem.Controllers
             if(house.ImagesId!=null)
             {
 
-                house.ImageData = this.getImageFromDbDecoding.GetImageAsync(house.ImagesId ?? 0).Result;
-            
+                house.ImageData = this.getImageFromDbDecoding.GetImageAsync(house.ImagesId ?? 0).Result;            
             
             }
 
             return View(house);
-
            
         }
 
         
         [HttpPost]
-        public async Task <IActionResult> EditPost(Guid Id, HouseFormModel house,IFormFile image)
+        public async Task <IActionResult> EditPost(Guid Id, HouseEditFormModel house,IFormFile image)
         {
 
             if (await houseService.Exist(Id) == false)
@@ -236,18 +231,10 @@ namespace RealEstateSystem.Controllers
                     house.ImagesId = imageEdit.Value;
                 }
 
-            }       
-
-
-
-
+            }  
 
             await this.houseService.EditSaveHouse(Id,house);
             return RedirectToAction("All");
-
-
-
-
             
         }
 
