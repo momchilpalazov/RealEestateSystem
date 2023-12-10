@@ -134,11 +134,12 @@ namespace RealEstateSystem.Controllers
 
 
         [HttpPost]
+        [ActionName("AddPost")]
         public async Task<IActionResult> AddPost(HouseFormModel house,IFormFile image)
         {
             //only agents are allowed to add houses
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(house);
                
@@ -240,16 +241,58 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task <IActionResult> Delete(Guid id)
         {
-            return View(new HouseDetailsViewModel());
+            if (await houseService.Exist(id) == false)
+            {
+                return BadRequest();
+
+            }
+
+            if (await houseService.HasAgentWithId(id, new Guid(this.User.GetId())) == false)
+            {
+                return Unauthorized();
+
+            }
+
+            var house = await this.houseService.EditGetHouseById(id);
+           
+
+            var modelHouse = new HouseDeleteDetailsViewModel
+            {
+                Id = house.Id,
+                Title = house.Title,
+                Address = house.Address,
+                ImageUrl = house.ImageUrl,
+                ImagesId = house.ImagesId,
+                ImageData=this.getImageFromDbDecoding.GetImageAsync(house.ImagesId ?? 0).Result
+                
+                
+            };         
+
+             return View(modelHouse);              
         }
 
        
         [HttpPost]
-        public IActionResult Delete(HouseDetailsViewModel house)
+        public async Task <IActionResult> Delete(HouseDeleteDetailsViewModel house)
         {
-            return RedirectToAction(nameof(AllAsync));
+
+            if (await houseService.Exist(house.Id) == false)
+            {
+                return BadRequest();
+
+            }
+
+            if (await houseService.HasAgentWithId(house.Id, new Guid(this.User.GetId())) == false)
+            {
+                return Unauthorized();
+
+            }
+
+            await this.houseService.DeleteHouse(house.Id);
+
+            return RedirectToAction("All");
         }
 
 

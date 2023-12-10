@@ -57,6 +57,23 @@ namespace RealEstateSystem.Services.Data
             
         }
 
+        public async Task DeleteHouse(Guid houseId)
+        {
+           
+            var house= await this.db.Hauses.FindAsync(houseId);
+
+            if (house == null) 
+            {
+                return;                   
+            
+            }
+
+            this.db.Hauses.Remove( house);
+            await this.db.SaveChangesAsync();
+
+
+        }
+
         public Task<HouseFormModel?> EditGetHouseById(Guid houseId)
         {
             var house=this.db.Hauses.Where(h=>h.Id==houseId).Select(h=> new HouseFormModel 
