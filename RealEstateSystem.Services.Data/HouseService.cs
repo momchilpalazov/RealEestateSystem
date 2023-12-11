@@ -272,6 +272,37 @@ namespace RealEstateSystem.Services.Data
 
         }
 
+        public async Task<bool> Isrented(Guid houseId)
+        {          
+            
+
+                var house=await this.db.Hauses.FindAsync(houseId);
+                var result= house.RenterId != null;
+                return result;            
+            
+        }
+
+        public async Task<bool> IsRentedByUserId(Guid houseId, Guid userId)
+        {
+            var house = await this.db.Hauses.FindAsync(houseId);
+
+            if (house==null)
+            
+            {
+                return false;
+            
+            }
+
+            if (house.RenterId != userId)
+            {
+                return false;
+            }
+
+            return true;
+
+            
+        }
+
         public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
         {
             var houses = await this.db.Hauses.OrderByDescending(x => x.Id).Take(3).Select(h => new HouseIndexServiceModel
@@ -289,6 +320,19 @@ namespace RealEstateSystem.Services.Data
 
         }
 
+        public async Task  Rent(Guid houseId, Guid userId)
+        {
+           var house= await this.db.Hauses.FindAsync(houseId);
+
+            if (house==null)
+            {
+                return;
+            }
+
+            house.RenterId = userId;
+
+            this.db.SaveChangesAsync();
+        }
 
         private IEnumerable<HouseServiceModel> ProjectToModel(Task<List<House>> houses)
         {

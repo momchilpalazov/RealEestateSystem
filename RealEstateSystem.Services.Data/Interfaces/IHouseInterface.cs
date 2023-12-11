@@ -32,6 +32,12 @@ namespace RealEstateSystem.Services.Data.Interfaces
         Task<bool> HasAgentWithId(Guid agentId,Guid currentUserId);
 
         Task DeleteHouse(Guid houseId);
+
+        Task<bool>Isrented(Guid houseId);
+
+        Task<bool> IsRentedByUserId (Guid houseId,Guid userId);
+
+        Task Rent(Guid houseId,Guid userId);
         
 
     }

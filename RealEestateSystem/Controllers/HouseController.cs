@@ -265,8 +265,7 @@ namespace RealEstateSystem.Controllers
                 Address = house.Address,
                 ImageUrl = house.ImageUrl,
                 ImagesId = house.ImagesId,
-                ImageData=this.getImageFromDbDecoding.GetImageAsync(house.ImagesId ?? 0).Result
-                
+                ImageData=this.getImageFromDbDecoding.GetImageAsync(house.ImagesId ?? 0).Result                
                 
             };         
 
@@ -297,9 +296,33 @@ namespace RealEstateSystem.Controllers
 
 
         [HttpPost]
-        public IActionResult Rent(int id)
+        public async Task <IActionResult> Rent(Guid id)
         {
+
+            if (await houseService.Exist(id) == false)
+            {
+                return BadRequest();
+
+            }
+
+            if (await agent.ExistById(new Guid(User.GetId())))
+            {
+                return Unauthorized();
+
+            }
+
+
+
+            if (await houseService.Isrented(id))
+            {
+                return BadRequest();
+
+            }
+
+            houseService.Rent(id, new Guid(this.User.GetId()));
+
             return RedirectToAction(nameof(MineHouse));
+            
         }
 
         [HttpPost]

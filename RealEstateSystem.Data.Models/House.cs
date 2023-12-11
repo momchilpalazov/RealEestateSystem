@@ -16,8 +16,7 @@ namespace RealEstateSystem.Data.Models
 
         public House()
         {
-            this.Id = Guid.NewGuid(); 
-            
+            this.Id = Guid.NewGuid();             
         }
 
 
