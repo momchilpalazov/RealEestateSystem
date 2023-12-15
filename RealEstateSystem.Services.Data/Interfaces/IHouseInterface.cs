@@ -38,6 +38,8 @@ namespace RealEstateSystem.Services.Data.Interfaces
         Task<bool> IsRentedByUserId (Guid houseId,Guid userId);
 
         Task Rent(Guid houseId,Guid userId);
+
+        Task Leave(Guid houseId);
         
 
     }

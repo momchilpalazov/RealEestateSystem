@@ -320,6 +320,20 @@ namespace RealEstateSystem.Services.Data
 
         }
 
+        public async Task Leave(Guid houseId)
+        {
+            var house = await this.db.Hauses.FindAsync(houseId);
+
+            if (house==null)
+            {
+                return;
+            }
+
+            house.RenterId = null;
+            await db.SaveChangesAsync();
+            
+        }
+
         public async Task  Rent(Guid houseId, Guid userId)
         {
            var house= await this.db.Hauses.FindAsync(houseId);

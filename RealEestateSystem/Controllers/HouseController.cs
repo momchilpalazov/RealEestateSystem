@@ -319,16 +319,37 @@ namespace RealEstateSystem.Controllers
 
             }
 
-            houseService.Rent(id, new Guid(this.User.GetId()));
+            await houseService.Rent(id, new Guid(this.User.GetId()));
 
             return RedirectToAction(nameof(MineHouse));
             
         }
 
         [HttpPost]
-        public IActionResult Leave(int id)
+        public async Task< IActionResult> Leave(Guid id)
         {
+            if (await houseService.Exist(id) == false)
+            {
+                return BadRequest();
+
+            }
+
+            if (await agent.ExistById(new Guid(User.GetId())))
+            {
+                return Unauthorized();
+
+            }
+
+            if (await houseService.IsRentedByUserId(id, new Guid(this.User.GetId()))==false)
+            {
+                return BadRequest();
+
+            }
+
+            await houseService.Leave(id);
             return RedirectToAction(nameof(MineHouse));
+
+           
         }
 
        

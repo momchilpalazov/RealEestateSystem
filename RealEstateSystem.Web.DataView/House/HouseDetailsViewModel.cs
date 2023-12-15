@@ -18,7 +18,5 @@ namespace RealEstateSystem.Models.ViewModels.House
         public AgentServiceViewModel AgentName { get; set; } = null!;   
 
 
-
-
     }
 }
