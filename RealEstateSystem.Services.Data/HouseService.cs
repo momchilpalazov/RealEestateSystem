@@ -20,9 +20,7 @@ namespace RealEstateSystem.Services.Data
 
         private readonly DataBaseSaveImageHelper dataBaseSaveImageHelper;
 
-        private readonly IServiceProvider serviceProvider;
-
-       
+        private readonly IServiceProvider serviceProvider;       
 
 
 
@@ -345,7 +343,7 @@ namespace RealEstateSystem.Services.Data
 
             house.RenterId = userId;
 
-            this.db.SaveChangesAsync();
+            await this.db.SaveChangesAsync();
         }
 
         private IEnumerable<HouseServiceModel> ProjectToModel(Task<List<House>> houses)

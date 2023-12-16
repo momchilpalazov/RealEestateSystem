@@ -20,9 +20,7 @@ namespace RealEstateSystem.Data.Models
 
         }
 
-
         public ICollection<House> RentedHause { get; set; } 
-
 
     }
 }
