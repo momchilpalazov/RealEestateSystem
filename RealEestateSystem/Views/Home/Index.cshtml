@@ -78,3 +78,35 @@
     </a>
 </div>
 
+<div class="mb-5"></div>
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn-primary" id="statistics-button">Statistics</button>
+    </div>
+</div>
+<div class="mt-4 p-5 bg-light d-done" id="statistics">
+
+    <div class="row">
+        <h2 class="col-md-6 text-center" id="total-houses"></h2>
+        <h2 class="col-md-6 text-center" id="total-rents"></h2>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        $('#statistics-button').on('click', ev=> {
+            $.get('/api/statistics', (data) => {
+                $('#total-houses').text(`Total Houses: ${data.totalHouses}`);
+                $('#total-rents').text(`Total Rents: ${data.totalRents}`);
+                $('#statistics').show();
+               
+            });            
+        });
+
+    </script>
+
+}
+
+

@@ -40,6 +40,7 @@ namespace RealEestateSystem
             builder.Services.AddScoped<IHouseInterface, HouseService>();
             builder.Services.AddScoped<IAgentInterface, AgentServiceIndex>();
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
+            builder.Services.AddScoped<IStatisticsInterface,StatisticsService>();
             builder.Services.AddScoped<LocalSaveImageHelper>();
             builder.Services.AddScoped<DataBaseSaveImageHelper>();
             builder.Services.AddScoped<GetImageFromDbDecoding>();

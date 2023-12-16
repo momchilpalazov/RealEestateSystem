@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RealEstateSystem.Models.ViewModels.Stastic
 {
-    public class StatisticServiceModelViewModel
+    public class StatisticServiceViewModel
     {
 
         public int TotalHouses { get; set; } 
