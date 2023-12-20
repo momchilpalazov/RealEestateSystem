@@ -310,6 +310,7 @@ namespace RealEstateSystem.Services.Data
                 Title = h.Title,
                 ImageUrl = h.ImageUrl,
                 ImageId = h.ImageId,
+                Address = h.Address,
 
 
             }).ToListAsync();

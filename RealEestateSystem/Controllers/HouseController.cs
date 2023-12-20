@@ -105,7 +105,7 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(Guid id,string information)
         {
             if (await houseService.Exist(id)==false)
             {
@@ -114,6 +114,13 @@ namespace RealEstateSystem.Controllers
             }
 
             var house= await this.houseService.GetHouseDetailsById(id);
+
+            //if (information!=house.GetInformationAboutHouse())
+            //{
+
+               
+
+            //}
 
             return View(house);            
         }

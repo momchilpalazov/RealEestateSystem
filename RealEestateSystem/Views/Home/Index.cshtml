@@ -1,4 +1,5 @@
 ﻿@using RealEstateSystem.Models.ViewModels.House
+@using RealEstateSystems.Web.Infrastructure.Extensions
 @model IEnumerable<HouseIndexServiceModel>
 
 
@@ -39,7 +40,8 @@
                     <img class="d-block w-100" style="height:500px" src="@house.ImageUrl" alt="@house.Title">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"> @house.Title</a>
+                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"
+                            asp-route-information="@RealEstateSystems.Web.Infrastructure.Extensions.ModelExtentstions.GetInformationAboutHouse"> @house.Title</a>
                         </h5>
                     </div>
                 </div>
@@ -54,7 +56,8 @@
                     <img class="d-block w-100" style="height: 500px" src="data:image/png;base64,@Convert.ToBase64String(house.ImageData)" alt="@house.Title">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"> @house.Title</a>
+                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"
+                               asp-route-information="@RealEstateSystems.Web.Infrastructure.Extensions.ModelExtentstions.GetInformationAboutHouse"> @house.Title</a>
                         </h5>
                     </div>
                 </div>
@@ -97,7 +100,7 @@
 {
     <script>
         $('#statistics-button').on('click', ev=> {
-            $.get('/api/statistics', (data) => {
+            $.get('https://localhost:7102/api/statistics', (data) => {
                 $('#total-houses').text(`Total Houses: ${data.totalHouses}`);
                 $('#total-rents').text(`Total Rents: ${data.totalRents}`);
                 $('#statistics').show();

@@ -5,7 +5,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
 {
     public interface IStatisticsInterface
     {
-        StatisticServiceViewModel GetStatistics();
+        Task<StatisticServiceViewModel> GetStatisticsAsync();
 
     }
 }

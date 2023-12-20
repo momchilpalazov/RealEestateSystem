@@ -71,21 +71,11 @@ namespace RealEestateSystem
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthorization();           
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                name: "House Details",
-                pattern: "{area:exists}/House/Deatils}/{id?}/{information}",
-                defaults: new { Controller = "House", Action = "Details" });
+            app.MapDefaultControllerRoute();
 
-                app.MapDefaultControllerRoute();
-
-                app.MapRazorPages();
-
-
-            });            
+            app.MapRazorPages();                    
 
             app.Run();
         }

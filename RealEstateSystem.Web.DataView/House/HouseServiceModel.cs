@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using RealEstateSystem.Data.Models;
 using Image = RealEstateSystem.Data.Models.Image;
+using RealEstateSystems.Web.Infrastructure.Extensions.Contracts;
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
-    public class HouseServiceModel
+    public class HouseServiceModel:IHouseModelInterface
     {
 
         public Guid Id { get; set; }

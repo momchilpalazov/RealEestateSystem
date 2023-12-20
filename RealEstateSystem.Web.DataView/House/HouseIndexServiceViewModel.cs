@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealEstateSystems.Web.Infrastructure.Extensions.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
-    public class HouseIndexServiceModel
+    public class HouseIndexServiceModel:IHouseModelInterface
     {
         public Guid Id { get; set; }
 
@@ -16,7 +17,9 @@ namespace RealEstateSystem.Models.ViewModels.House
 
         public int? ImageId { get; set; }    
 
-        public byte[]?ImageData { get; set; }       
+        public byte[]?ImageData { get; set; }    
+        
+        public string Address { get; set; }=null!;
 
 
 
