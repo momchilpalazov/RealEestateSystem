@@ -40,8 +40,7 @@
                     <img class="d-block w-100" style="height:500px" src="@house.ImageUrl" alt="@house.Title">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"
-                            asp-route-information="@RealEstateSystems.Web.Infrastructure.Extensions.ModelExtentstions.GetInformationAboutHouse"> @house.Title</a>
+                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id" > @house.Title</a>
                         </h5>
                     </div>
                 </div>
@@ -56,8 +55,7 @@
                     <img class="d-block w-100" style="height: 500px" src="data:image/png;base64,@Convert.ToBase64String(house.ImageData)" alt="@house.Title">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"
-                               asp-route-information="@RealEstateSystems.Web.Infrastructure.Extensions.ModelExtentstions.GetInformationAboutHouse"> @house.Title</a>
+                            <a class="btn btn-primary" asp-controller="House" aspaction="Details" asp-route-id="@house.Id"> @house.Title</a>
                         </h5>
                     </div>
                 </div>

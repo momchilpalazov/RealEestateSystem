@@ -113,14 +113,7 @@ namespace RealEstateSystem.Controllers
 
             }
 
-            var house= await this.houseService.GetHouseDetailsById(id);
-
-            //if (information!=house.GetInformationAboutHouse())
-            //{
-
-               
-
-            //}
+            var house= await this.houseService.GetHouseDetailsById(id);     
 
             return View(house);            
         }
@@ -151,8 +144,6 @@ namespace RealEstateSystem.Controllers
                 return View(house);
                
             }
-
-
            
             house.Categories= this.houseService.GetCategories();
 
@@ -190,8 +181,7 @@ namespace RealEstateSystem.Controllers
             {
                 return BadRequest();    
 
-            }
-            
+            }            
 
 
             var house = await this.houseService.EditGetHouseById(id);

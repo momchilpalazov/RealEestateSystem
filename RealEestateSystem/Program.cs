@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using RealEstateSystem.Data;
@@ -46,8 +47,13 @@ namespace RealEestateSystem
             builder.Services.AddScoped<GetImageFromDbDecoding>();
            
 
-
-            builder.Services.AddControllersWithViews();
+            //Add AntiforgeryToken filter against CSRF attacks
+            builder.Services.AddControllersWithViews( options=>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });  
+            
+            
 
             var app = builder.Build();
 
