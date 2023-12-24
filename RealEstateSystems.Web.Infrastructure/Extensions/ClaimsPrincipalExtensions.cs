@@ -9,13 +9,10 @@ namespace RealEstateSystems.Web.Infrastructure.Extensions
 {
     public static class ClaimsPrincipalExtensions
     {
-
-        public static string?GetId(this ClaimsPrincipal user)
+        public static string? GetId(this ClaimsPrincipal user)
         {
-            return user.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var claim = user.FindFirst(ClaimTypes.NameIdentifier);
+            return claim?.Value;
         }
-
-
-
     }
 }

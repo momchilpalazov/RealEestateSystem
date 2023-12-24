@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@inject IAgentInterface agentInterface
+
+
+
+@{  
+    var userId = User.GetId();
+
+    bool isAgent = false;
+
+    if (!string.IsNullOrEmpty(userId))
+    {
+        isAgent = agentInterface.ExistById(new Guid(userId)).Result;
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,9 +46,13 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="House" asp-action="MineHouse">My Houses</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="House" asp-action="Add">Add Houses</a>
-                            </li>
+                            @if (isAgent)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="House" asp-action="Add">Add Houses</a>
+                                </li>
+                            }
+                            
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="AllCategory">All Categories</a>

@@ -20,6 +20,7 @@
     <ProjectReference Include="..\RealEstateSystem.Common\RealEstateSystem.Common.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Data.Models\RealEstateSystem.Data.Models.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Service.Data.Models\RealEstateSystem.Services.Data.Models.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Services.Data\RealEstateSystem.Services.Data.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Web.DataView\RealEstateSystem.Models.ViewModels.csproj" />
     <ProjectReference Include="..\RealEstateSystems.Web.Infrastructure\RealEstateSystems.Web.Infrastructure.csproj" />
