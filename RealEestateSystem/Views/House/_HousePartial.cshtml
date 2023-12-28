@@ -41,7 +41,7 @@
 
                     }                    
                     <p></p>
-                    @if (!Model.IsRented && await agents.ExistById(new Guid(User.GetId())))
+                    @if (!Model.IsRented && await agents.ExistById(new Guid(User.GetId()))==false)
                     {
                         <form class="input-group-sm" asp-controller="House" asp-action="Rent" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Rent" />
