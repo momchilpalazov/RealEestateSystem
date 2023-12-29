@@ -1,6 +1,7 @@
 ﻿@using RealEstateSystem.Models.ViewModels.House
 @using RealEstateSystems.Web.Infrastructure.Extensions
 @model IEnumerable<HouseIndexServiceModel>
+@inject IAgentInterface agents
 
 
 @{
@@ -8,25 +9,23 @@
     var houses = Model.ToList();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Us</h1>
-    <p>Learn about <a>Best Place for Renting Houses</a>.</p>
-</div>
 
 @if (!houses.Any())
 {
- <div class="mt-4 p-5 bg-light">
- <h1 class="display-4">Welcome to the best place for renting houses!</h1>
- <p class="lead"> There are no houses in the system currently available so why don't you just add one? </p>
- <hr class="my-4">
-     <p class="lead">
-         @if (User.Identity?.IsAuthenticated==null)
-         {
-            <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add House</a>
-         }
-     </p>
- </div>
+    <div class="mt-4 p-5 bg-light">
+        <h1 class="display-4">Welcome to the best place for renting houses!</h1>
+        <p class="lead"> There are no houses in the system currently available so why don't you just add one? </p>
+        <hr class="my-4">
+        <p class="lead">
+            @if (User.Identity.IsAuthenticated && await agents.ExistById(new Guid(User.GetId())))
+            {
+                <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add House</a>
+            }
+        </p>
+    </div>
+
 }
+
 <div class="mb-5"></div>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
      <div class="carousel-inner">
