@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static RealEstateSystem.Common.EntityValidationConsatnts.ApplicationUser;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RealEstateSystem.Data.Models
 {
@@ -19,6 +15,16 @@ namespace RealEstateSystem.Data.Models
             RentedHause = new HashSet<House>();
 
         }
+
+        [Required]
+        [MinLength(UserFirstNameMinLength)]
+        [MaxLength(UserFirstNameMaxLength)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MinLength(UserLastNameMinLength)]
+        [MaxLength(UserLastNameMaxLength)]
+        public string LastName { get; set; }
 
         public ICollection<House> RentedHause { get; set; } 
 

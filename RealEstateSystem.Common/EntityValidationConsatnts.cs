@@ -45,11 +45,11 @@ namespace RealEstateSystem.Common
 
         public static class ApplicationUser
         {
-            public const int FirstNameMinLength = 3;
-            public const int FirstNameMaxLength = 20;
+            public const int UserFirstNameMinLength = 3;
+            public const int UserFirstNameMaxLength = 20;
 
-            public const int LastNameMinLength = 3;
-            public const int LastNameMaxLength = 20;
+            public const int UserLastNameMinLength = 3;
+            public const int UserLastNameMaxLength = 20;
         }
 
 
