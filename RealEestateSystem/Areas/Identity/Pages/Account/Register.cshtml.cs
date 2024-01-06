@@ -23,6 +23,7 @@ using static RealEstateSystem.Common.EntityValidationConsatnts.ApplicationUser;
 
 namespace RealEstateSystem.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
