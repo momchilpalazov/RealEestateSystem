@@ -54,6 +54,7 @@ namespace RealEestateSystem
             });  
             
             
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
