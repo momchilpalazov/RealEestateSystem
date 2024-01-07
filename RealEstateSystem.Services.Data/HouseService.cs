@@ -20,16 +20,20 @@ namespace RealEstateSystem.Services.Data
 
         private readonly DataBaseSaveImageHelper dataBaseSaveImageHelper;
 
-        private readonly IServiceProvider serviceProvider;       
+        private readonly IServiceProvider serviceProvider;
+
+        private readonly IApplicationUserInterface applicationUser;
 
 
 
-        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding,IServiceProvider serviceProvider,DataBaseSaveImageHelper dataBaseSaveImageHelper )
+        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding,IServiceProvider serviceProvider,DataBaseSaveImageHelper dataBaseSaveImageHelper,
+         IApplicationUserInterface applicationUser   )
         {
             this.db = db;
             this.getImageFromDbDecoding = fromDbDecoding;
             this.serviceProvider = serviceProvider;  
             this.dataBaseSaveImageHelper = dataBaseSaveImageHelper;
+            this.applicationUser = applicationUser;
            
         }
 
@@ -242,6 +246,7 @@ namespace RealEstateSystem.Services.Data
                 AgentName = new AgentServiceViewModel
                 {
                     
+                    FullName = this.applicationUser.GetFullUserNameAsync(h.Agent.UserId).Result,
                     PhoneNumber = h.Agent.PhoneNumber,
                     Email = h.Agent.User.Email
                 }

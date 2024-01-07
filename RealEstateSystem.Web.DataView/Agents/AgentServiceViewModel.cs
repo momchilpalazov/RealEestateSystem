@@ -9,7 +9,7 @@ namespace RealEstateSystem.Models.ViewModels.Agents
     public class AgentServiceViewModel
     {
 
-        
+        public string FullName { get; set; } = null!;
 
         public string PhoneNumber { get; set; } = null!;   
         
