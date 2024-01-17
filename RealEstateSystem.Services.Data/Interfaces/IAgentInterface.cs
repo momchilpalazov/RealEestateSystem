@@ -1,4 +1,5 @@
-﻿using RealEstateSystem.Models.ViewModels.House;
+﻿using RealEstateSystem.Models.ViewModels.Agents;
+using RealEstateSystem.Models.ViewModels.House;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task<bool> UserHasRent(Guid userId);
 
-        Task  Create(Guid userId, string phoneNumber);
+        Task  Create(Guid userId, BecomeAgentFormModel model);
         Task <string> GetAgentId(Guid agentId);
 
 

@@ -18,8 +18,7 @@ namespace RealEstateSystem.Common
             public const int DescriptionMaxLength = 500;
 
             public const string PricePerMonthMinLength = "1";
-            public const string PricePerMonthMaxLength = "2000";
-        
+            public const string PricePerMonthMaxLength = "2000";      
         
         
         

@@ -256,6 +256,27 @@ namespace RealEstateSystem.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f41f8572-8eef-4388-a97c-541e666e3a3a"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c9382a0d-4902-4bac-b64b-5f1b11773e60",
+                            Email = "admin@realestate.com",
+                            EmailConfirmed = false,
+                            FirstName = "Great",
+                            LastName = "Admin",
+                            LockoutEnabled = true,
+                            NormalizedEmail = "ADMIN@REALESTATE.COM",
+                            NormalizedUserName = "ADMIN@REALESTATE.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDcKBtdYCIZckzkPR0y0q4PRdPL3vnwrXhEtLbBQXs0RbMnPCdNv1dD3reltpK8xgg==",
+                            PhoneNumber = "+49888888888",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "AC9AC956-D790-4B70-954C-56B48546651B",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@realestate.com"
+                        });
                 });
 
             modelBuilder.Entity("RealEstateSystem.Data.Models.Category", b =>
@@ -349,7 +370,7 @@ namespace RealEstateSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3bcaa97c-36b5-4654-9260-4806fd0bf176"),
+                            Id = new Guid("da7bc27f-3861-410c-847a-189735611761"),
                             Address = "North London, UK (near the border)",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 3,
@@ -361,7 +382,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("34103b58-e9b3-4bbd-a8ae-498c8bfb69bc"),
+                            Id = new Guid("32a32756-7e4d-4d0f-8ef2-9252c84db393"),
                             Address = "Near the Sea Garden in Burgas, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 2,
@@ -372,7 +393,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d95a25b7-c549-4e4f-89a9-38e7c1c12021"),
+                            Id = new Guid("24e5b99b-c11e-4511-9e3b-a76e63c5c8c2"),
                             Address = "Boyana Neighbourhood, Sofia, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 1,

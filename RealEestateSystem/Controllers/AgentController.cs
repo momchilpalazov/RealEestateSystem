@@ -50,7 +50,7 @@ namespace RealEstateSystem.Controllers
             {
                 var isAgent = await this.agentInterface.ExistById(Guid.Parse(userId));
 
-                if (!isAgent)
+                if (isAgent)
                 {
                     return View("Agent Error", "There was an error processing your request as a dealer.");
                 }
@@ -74,9 +74,10 @@ namespace RealEstateSystem.Controllers
                 return View(nameof(Become));
             }
 
-            await agentInterface.Create(Guid.Parse(userId), becomeAgent.PhoneNumber);
+            await agentInterface.Create(Guid.Parse(userId),becomeAgent);
+
+            return RedirectToAction("All", "House"); 
             
-            return RedirectToAction(nameof(HouseController.AllAsync), "House");
 
 
         }

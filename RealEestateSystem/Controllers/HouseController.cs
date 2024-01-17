@@ -41,24 +41,22 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public  IActionResult AllAsync([FromQuery] AllHousesQueryModel query,int imageId )
+        public async Task <IActionResult> AllAsync([FromQuery] AllHousesQueryModel query,int imageId )
         {
-            
-            var housesQuery =   this.houseService.GetAllHouse(
+
+            var housesQuery =  this.houseService.GetAllHouse(
                 query.CategoryId,
                 query.SearchTerm,
                 query.Sorting,
-                query.CuurentPage,                
+                query.CuurentPage,
                 AllHousesQueryModel.HousesPerPage);
 
             query.TotalHouseCount = housesQuery.TotalHousesCount;
             query.Houses = housesQuery.Houses;
 
-            var categoriesList =  this.houseService.GetCategories();    
-            query.Categories = categoriesList;   
-            return  View(query);
-                        
-        
+            var categoriesList = this.houseService.GetCategories();
+            query.Categories = categoriesList;
+            return View(query);
         }        
 
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
+using RealEstateSystem.Models.ViewModels.Agents;
 using RealEstateSystem.Services.Data.Interfaces;
 
 
@@ -15,17 +16,19 @@ namespace RealEstateSystem.Services.Data
             this.db = db;
         }
 
-        public async Task Create(Guid userId, string phoneNumber)
+        public async Task Create(Guid userId, BecomeAgentFormModel model)
         {
 
             var agent = new Agent
             {
                 UserId = userId,
-                PhoneNumber = phoneNumber
+                PhoneNumber = model.PhoneNumber
             };
 
             await this.db.Agents.AddAsync(agent);
             await this.db.SaveChangesAsync();
+
+            
 
         }
 
