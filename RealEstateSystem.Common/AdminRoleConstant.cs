@@ -10,7 +10,7 @@ namespace RealEstateSystem.Common
     {
 
         public const string AdminRoleName = "Admin";
-        public const string AdminEmail = "admin@realestate.com";
+        public const string AdminEmail = "admin@realestate.de";
 
 
     }

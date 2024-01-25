@@ -24,10 +24,8 @@ namespace RealEstateSystem.Services.Data
             if (string.IsNullOrEmpty(user.FirstName)||string.IsNullOrEmpty(user.LastName))
             {
                 return null;
-
             
             }
-
             
             return user.FirstName + " " + user.LastName;
         }

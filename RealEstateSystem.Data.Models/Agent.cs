@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static RealEstateSystem.Common.EntityValidationConsatnts.Agent;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RealEstateSystem.Data.Models
 {
@@ -16,7 +14,7 @@ namespace RealEstateSystem.Data.Models
             this.Id = Guid.NewGuid();
 
             ManageHauses = new HashSet<House>();
-           
+
         }
 
         [Key]
@@ -29,13 +27,10 @@ namespace RealEstateSystem.Data.Models
 
         public Guid UserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; }=null!;
 
-        public virtual ICollection<House> ManageHauses { get; set; }        
 
-      
-        
-
+        public virtual ICollection<House>? ManageHauses { get; set; }
 
 
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RealEstateSystem.Data;
 
@@ -11,9 +12,10 @@ using RealEstateSystem.Data;
 namespace RealEstateSystem.Data.Migrations
 {
     [DbContext(typeof(RealEstateSystemDbContext))]
-    partial class RealEstateSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240119121203_AddCollectionAgentsInAppUser")]
+    partial class AddCollectionAgentsInAppUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,13 +202,17 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Admin");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Adminov");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -345,7 +351,7 @@ namespace RealEstateSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f8ef6d68-1835-4b35-92e3-18077902a9ec"),
+                            Id = new Guid("cd4dbdc5-2562-4d7f-9de7-5e94f7f0c407"),
                             Address = "North London, UK (near the border)",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 3,
@@ -357,7 +363,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0b8e6c6b-7161-4b5c-ab36-4484fa7afd35"),
+                            Id = new Guid("984b3e7f-e60a-49cd-9852-086cfdb490d3"),
                             Address = "Near the Sea Garden in Burgas, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 2,
@@ -368,7 +374,7 @@ namespace RealEstateSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1b5b744e-fda4-47ec-b0a9-5589cb7c2e92"),
+                            Id = new Guid("00823646-5da5-4792-9e5e-0be08928e189"),
                             Address = "Boyana Neighbourhood, Sofia, Bulgaria",
                             AgentId = new Guid("723b08eb-551c-4f19-a202-8b83cd44568f"),
                             CategoryId = 1,
@@ -452,7 +458,7 @@ namespace RealEstateSystem.Data.Migrations
             modelBuilder.Entity("RealEstateSystem.Data.Models.Agent", b =>
                 {
                     b.HasOne("RealEstateSystem.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Agents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -498,6 +504,8 @@ namespace RealEstateSystem.Data.Migrations
 
             modelBuilder.Entity("RealEstateSystem.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Agents");
+
                     b.Navigation("RentedHause");
                 });
 

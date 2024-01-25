@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using RealEstateSystem.Data;
+using RealEstateSystem.Data.Configurations;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Services.Data;
 using RealEstateSystem.Services.Data.Interfaces;
@@ -22,7 +23,7 @@ namespace RealEestateSystem
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-           
+            
 
 
 

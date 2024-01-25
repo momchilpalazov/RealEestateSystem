@@ -9,16 +9,12 @@ namespace RealEstateSystem.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.Property(u=>u.FirstName).
+            builder.Property(u => u.FirstName).
                 HasDefaultValue("Admin");
 
             builder.Property(u => u.LastName).
                 HasDefaultValue("Adminov");
-           
         }
-
-
-
 
     }
 }
