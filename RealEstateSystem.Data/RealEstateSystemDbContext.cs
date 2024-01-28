@@ -45,15 +45,19 @@ namespace RealEstateSystem.Data
 
             //builder.ApplyConfigurationsFromAssembly(assembly);
             //
+
             builder.ApplyConfiguration(new ApplicationUserEntityConfigurations());
             builder.ApplyConfiguration(new HouseEntityConfigurations());
 
             if (seedData)
             {
-                builder.ApplyConfiguration(new AdministratorAndAgentSeedConfigurations());
+                //builder.ApplyConfiguration(new AdministratorAndAgentSeedConfigurations());
+                builder.ApplyConfiguration<ApplicationUser>(new AdministratorAndAgentSeedConfigurations());
+                builder.ApplyConfiguration<Agent>(new AdministratorAndAgentSeedConfigurations());
+
                 builder.ApplyConfiguration(new CategoryEntityConfigurations());
                 builder.ApplyConfiguration(new SeedHouseEntityConfigurations());
-               
+
             }
 
             base.OnModelCreating(builder);           
