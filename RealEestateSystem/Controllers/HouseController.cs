@@ -171,14 +171,15 @@ namespace RealEstateSystem.Controllers
 
             if (await houseService.Exist(id) == false)
             {
-                return Unauthorized();
+                
+                return BadRequest();
 
             }
 
-            if (await houseService.HasAgentWithId(id, new Guid(this.User.GetId())) == false)
+            if (await houseService.HasAgentWithId(id, new Guid(this.User.GetId())) == false && User.IsAdmin()==false)
             {
-                return BadRequest();    
 
+                return Unauthorized();
             }            
 
 
@@ -206,13 +207,13 @@ namespace RealEstateSystem.Controllers
 
             }
 
-            if (await houseService.HasAgentWithId(Id, new Guid(this.User.GetId())) == false)
+            if (await houseService.HasAgentWithId(Id, new Guid(this.User.GetId())) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
 
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return View(house);
 
@@ -244,7 +245,7 @@ namespace RealEstateSystem.Controllers
 
             }
 
-            if (await houseService.HasAgentWithId(id, new Guid(this.User.GetId())) == false)
+            if (await houseService.HasAgentWithId(id, new Guid(this.User.GetId())) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
 
@@ -278,7 +279,7 @@ namespace RealEstateSystem.Controllers
 
             }
 
-            if (await houseService.HasAgentWithId(house.Id, new Guid(this.User.GetId())) == false)
+            if (await houseService.HasAgentWithId(house.Id, new Guid(this.User.GetId())) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
 
@@ -300,7 +301,7 @@ namespace RealEstateSystem.Controllers
 
             }
 
-            if (await agent.ExistById(new Guid(User.GetId())))
+            if (await agent.ExistById(new Guid(User.GetId())) && User.IsAdmin() == false)
             {
                 return Unauthorized();
 

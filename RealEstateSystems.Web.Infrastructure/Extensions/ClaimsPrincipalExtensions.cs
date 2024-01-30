@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using static RealEstateSystem.Common.AdminRoleConstant;
+
 
 namespace RealEstateSystems.Web.Infrastructure.Extensions
 {
@@ -14,5 +11,16 @@ namespace RealEstateSystems.Web.Infrastructure.Extensions
             var claim = user.FindFirst(ClaimTypes.NameIdentifier);
             return claim?.Value;
         }
+
+
+        public static bool IsAdmin(this ClaimsPrincipal user)
+        {
+
+            return user.IsInRole(AdminRoleName);
+        
+        
+        }
+
+
     }
 }
