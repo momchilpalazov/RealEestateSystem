@@ -86,7 +86,15 @@ namespace RealEestateSystem
             }
             
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(
+                
+                new StaticFileOptions
+                {
+                    OnPrepareResponse = ctx =>
+                    {
+                        ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=3600");
+                    }
+                });
 
             app.UseRouting();
 
