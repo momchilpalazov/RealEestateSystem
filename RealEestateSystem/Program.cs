@@ -1,16 +1,22 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using RealEstateSystem.Data;
-using RealEstateSystem.Data.Configurations;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Services.Data;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Helper;
+using RealEstateSystems.Web.Infrastructure.Extensions;
+using static RealEstateSystem.Common.AdminRoleConstant;
+
+
+
+
 
 namespace RealEestateSystem
 {
+
+
     public class Program
     {
         public static void Main(string[] args)
@@ -25,8 +31,6 @@ namespace RealEestateSystem
 
             
 
-
-
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");                
@@ -37,8 +41,8 @@ namespace RealEestateSystem
 
             }).AddRoles<IdentityRole<Guid>>().AddEntityFrameworkStores<RealEstateSystemDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
+           
 
-            
             builder.Services.AddScoped<IHouseInterface, HouseService>();
             builder.Services.AddScoped<IAgentInterface, AgentServiceIndex>();
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
@@ -60,12 +64,19 @@ namespace RealEestateSystem
 
             var app = builder.Build();
 
+
+            //app.SeedAdministrator("администраторският имейл");
+
+            
+            
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                                
                 app.UseMigrationsEndPoint();
                 app.UseDeveloperExceptionPage();
+                
             }
             else
             {
@@ -73,14 +84,25 @@ namespace RealEestateSystem
                 app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();           
+            app.UseAuthorization();
+
+            app.SeedAdministrator(AdminEmail);
+
+
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                name: "areaRoute",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");                
+            });
 
             app.MapDefaultControllerRoute();
 

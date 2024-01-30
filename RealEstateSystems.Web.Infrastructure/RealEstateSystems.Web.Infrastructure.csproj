@@ -16,8 +16,4 @@
     <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\Contracts\" />
-  </ItemGroup>
-
 </Project>

@@ -6,32 +6,29 @@ using static RealEstateSystem.Common.AdminRoleConstant;
 
 namespace RealEstateSystems.Web.Infrastructure.Extensions
 {
-    public  class ApplicationBuilderExtensions
+    public static class ApplicationBuilderExtensions
     {
-
-        public static IApplicationBuilder SeedAdmin(IApplicationBuilder application,string email)
+        public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)
         {
 
 
-            using var serviceScope = application.ApplicationServices.CreateScope();
+            using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
 
-            var serviceProvider = serviceScope.ServiceProvider;
+            IServiceProvider serviceProvider = serviceScope.ServiceProvider;
 
-            var userManager=serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-            var roleManger=serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+            UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            RoleManager<IdentityRole<Guid>> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
             Task.Run(async () =>
             {
-                if (await roleManger.RoleExistsAsync(AdminRoleName)) 
-                { 
-                    return;                
-                
+                if (await roleManager.RoleExistsAsync(AdminRoleName))
+                {
+                    return;
                 }
 
-                IdentityRole<Guid> role= new IdentityRole<Guid>(AdminRoleName);
+                IdentityRole<Guid> role = new IdentityRole<Guid>(AdminRoleName);
 
-                await roleManger.CreateAsync(role);
+                await roleManager.CreateAsync(role);
 
                 ApplicationUser adminUser = await userManager.FindByEmailAsync(email);
 
@@ -39,14 +36,10 @@ namespace RealEstateSystems.Web.Infrastructure.Extensions
 
             }).GetAwaiter().GetResult();
 
-            return application;         
+            return app;
 
 
-            
+
         }
-
-
-
-
     }
 }
