@@ -8,6 +8,8 @@ namespace RealEstateSystems.Web.Infrastructure.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
+        //This method is used to seed the admin user in the database if it is not already seeded
+        //Passed email schoould be a valid email of the existing admin user  
         public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)
         {
 
