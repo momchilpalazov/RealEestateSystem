@@ -54,16 +54,16 @@ namespace RealEstateSystem.Data.Models
         [Required]
         public int CategoryId { get; set; }
 
-        public Category Category { get; set; }=null!;
+        public virtual Category Category { get; set; }=null!;
 
-        [Required]
+        
         public Guid AgentId { get; set; }
 
-        public Agent Agent { get; set; }=null!;
+        public virtual Agent Agent { get; set; }=null!;
 
         public Guid? RenterId { get; set; } 
 
-        public virtual ApplicationUser? Renter { get; set; } = null!;        
+        public virtual ApplicationUser? Renter { get; set; }       
 
 
     }

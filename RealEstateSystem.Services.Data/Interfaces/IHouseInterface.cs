@@ -12,7 +12,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
 {
     public interface IHouseInterface
     {
-        Task AddHouse(HouseFormModel house);
+        Task AddHouse(HouseFormModel house,Guid agentId);
         HouseQueryServiceModel GetAllHouse(int? categoryId=null,string? searchTerm=null,HouseSorting sorting= HouseSorting.Newest,int currentPage=1,int housesPerPage=1);
         ICollection<CategoryHouseServiceViewModel> GetCategories();
         Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses();
@@ -27,7 +27,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task<HouseFormModel?> EditGetHouseById(Guid houseId);
 
-        Task EditSaveHouse(Guid Id,HouseEditFormModel house);
+        Task EditSaveHouse(Guid Id,HouseEditFormModel house,Guid agentId);
        
         Task<bool> HasAgentWithId(Guid agentId,Guid currentUserId);
 

@@ -8,15 +8,10 @@ using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Helper;
 using RealEstateSystems.Web.Infrastructure.Extensions;
 using static RealEstateSystem.Common.AdminRoleConstant;
-
-
-
-
+using RealEstateSystem.Controllers;
 
 namespace RealEestateSystem
 {
-
-
     public class Program
     {
         public static void Main(string[] args)
@@ -52,6 +47,10 @@ namespace RealEestateSystem
             builder.Services.AddScoped<DataBaseSaveImageHelper>();
             builder.Services.AddScoped<GetImageFromDbDecoding>();
            
+            builder.Services.AddAutoMapper(
+                typeof(IHouseInterface).Assembly,
+                typeof(HomeController).Assembly);
+
 
             //Add AntiforgeryToken filter against CSRF attacks
             builder.Services.AddControllersWithViews( options=>

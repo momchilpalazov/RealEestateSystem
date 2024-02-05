@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RealEstateSystem.Data;
 
@@ -11,9 +12,10 @@ using RealEstateSystem.Data;
 namespace RealEstateSystem.Data.Migrations
 {
     [DbContext(typeof(RealEstateSystemDbContext))]
-    partial class RealEstateSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240205181830_AddChangeInHouseEntityModel")]
+    partial class AddChangeInHouseEntityModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,7 +177,7 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Agents", (string)null);
+                    b.ToTable("Agents");
 
                     b.HasData(
                         new
@@ -301,7 +303,7 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -372,7 +374,7 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.HasIndex("RenterId");
 
-                    b.ToTable("Hauses", (string)null);
+                    b.ToTable("Hauses");
 
                     b.HasData(
                         new
@@ -427,7 +429,7 @@ namespace RealEstateSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

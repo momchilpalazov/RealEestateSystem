@@ -45,6 +45,8 @@ namespace RealEstateSystem.Models.ViewModels.House
         [Display(Name = "Agent")]
         public Guid AgentId { get; set; }
 
+        
+
         [Display(Name = "Category")]    
         public int CategoryId { get; set; }
 

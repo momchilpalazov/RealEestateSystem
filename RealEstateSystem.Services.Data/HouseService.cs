@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Agents;
@@ -8,7 +7,6 @@ using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Helper;
 using RealEstateSystems.Web.Infrastructure.HouseSorting;
-
 namespace RealEstateSystem.Services.Data
 {
     public class HouseService : IHouseInterface
@@ -37,12 +35,15 @@ namespace RealEstateSystem.Services.Data
            
         }
 
-        public async Task AddHouse(HouseFormModel house )
+        public async Task AddHouse(HouseFormModel house,Guid agentId )
         {
-            var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
+            //var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
+
+
 
             var houseEntity = new House
             {
+
                 Title =  house.Title,
                 Description = house.Description,
                 PricePerMonth = house.PricePerMonth,               
@@ -50,9 +51,12 @@ namespace RealEstateSystem.Services.Data
                 CategoryId = house.CategoryId,
                 ImageUrl = house.ImageUrl, 
                 ImageId = house.ImagesId,
-                AgentId = AgentId                
+                AgentId = agentId,
+                RenterId = null,
+                
+            };
 
-            };       
+             
 
             await this.db.Hauses.AddAsync(houseEntity);
             await this.db.SaveChangesAsync();
@@ -101,9 +105,9 @@ namespace RealEstateSystem.Services.Data
             
         }
 
-        public async Task EditSaveHouse(Guid Id, HouseEditFormModel house )
+        public async Task EditSaveHouse(Guid Id, HouseEditFormModel house,Guid agentId )
         {
-            var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
+            //var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
 
             var houseEntity = await this.db.Hauses.FindAsync(house.Id);
 
@@ -115,7 +119,7 @@ namespace RealEstateSystem.Services.Data
             houseEntity.CategoryId = house.CategoryId;
             houseEntity.ImageUrl = house.ImageUrl;
             houseEntity.ImageId = house.ImagesId;
-            houseEntity.AgentId = AgentId;
+            houseEntity.AgentId = agentId;
             houseEntity.RenterId = null;
             Category? categories = db.Categories.Where(c => c.Id == house.CategoryId).Select(c => new Category
 
@@ -127,7 +131,6 @@ namespace RealEstateSystem.Services.Data
             houseEntity.Category = categories;
 
             await this.db.SaveChangesAsync();
-
                     
         }
 
@@ -202,7 +205,7 @@ namespace RealEstateSystem.Services.Data
         public async Task<IEnumerable<HouseServiceModel>> GetAllHouseByAgentId(Guid agentId)
         {      
 
-           var houses = await  this.db.Hauses.Where(a => a.AgentId == agentId).ToListAsync();
+           var houses = await  this.db.Hauses.Where(a => a.Agent.Id == agentId).ToListAsync();
 
            return ProjectToModel(Task.FromResult(houses));
            

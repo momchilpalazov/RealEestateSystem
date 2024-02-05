@@ -41,7 +41,8 @@ namespace RealEstateSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task <IActionResult> AllAsync([FromQuery] AllHousesQueryModel query,int imageId )
+        [ActionName("All")]
+        public  Task <IActionResult> AllAsync([FromQuery] AllHousesQueryModel query,int imageId )
         {
 
             var housesQuery =  this.houseService.GetAllHouse(
@@ -56,7 +57,9 @@ namespace RealEstateSystem.Controllers
 
             var categoriesList = this.houseService.GetCategories();
             query.Categories = categoriesList;
-            return View(query);
+
+            return Task.FromResult((IActionResult)View(query));
+           
         }        
 
 
@@ -79,22 +82,24 @@ namespace RealEstateSystem.Controllers
 
             if (userId != null)
             {
-                if (await agent.ExistById(Guid.Parse(userId)))
+                if (User.IsAdmin())
                 {
                     var currentAgent = await agent.GetAgentId(Guid.Parse(userId));
 
                     myHouses = await this.houseService.GetAllHouseByAgentId(Guid.Parse(currentAgent));
+                } 
+                else if (await agent.ExistById(Guid.Parse(userId)))
+                {
+                    var currentAgent = await agent.GetAgentId(Guid.Parse(userId));
 
-
+                    myHouses = await this.houseService.GetAllHouseByAgentId(Guid.Parse(currentAgent));
                 }
                 else
                 {
                     myHouses = await this.houseService.GetAllHouseByUserId(Guid.Parse(userId));
                 }
 
-
-            }               
-
+            }            
 
             return View(myHouses);
            
@@ -140,9 +145,9 @@ namespace RealEstateSystem.Controllers
             if (!ModelState.IsValid)
             {
                 return View(house);
-               
+
             }
-           
+
             house.Categories= this.houseService.GetCategories();
 
             if (image!=null)
@@ -156,9 +161,10 @@ namespace RealEstateSystem.Controllers
 
             }
 
-           
+            var agentId= this.agent.GetAgentId(new Guid(this.User.GetId())).Result;
 
-            await this.houseService.AddHouse(house);
+
+            await this.houseService.AddHouse(house,Guid.Parse(agentId));
             return RedirectToAction("All");
 
            
@@ -228,9 +234,11 @@ namespace RealEstateSystem.Controllers
                     house.ImagesId = imageEdit.Value;
                 }
 
-            }  
+            }
 
-            await this.houseService.EditSaveHouse(Id,house);
+            var agentId = this.agent.GetAgentId(new Guid(this.User.GetId())).Result;
+
+            await this.houseService.EditSaveHouse(Id,house,Guid.Parse(agentId));
             return RedirectToAction("All");
             
         }
@@ -311,7 +319,11 @@ namespace RealEstateSystem.Controllers
 
             if (await houseService.Isrented(id))
             {
-                return BadRequest();
+                TempData["Message"] =
+                    "Selected house is already rented by another user! Please select another house.";
+
+                return RedirectToAction("All", "House");
+                //return BadRequest();
 
             }
 

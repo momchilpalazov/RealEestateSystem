@@ -12,12 +12,16 @@ namespace RealEstateSystem.Data.Configurations
 
         private ApplicationUser AdminUser;
 
+        private Guid adminUserId = Guid.Parse("41142a71-27bb-410b-91f0-020b1c334de9");
+
+        //723b08eb-551c-4f19-a202-8b83cd44568f
+
         public AdministratorAndAgentSeedConfigurations()
         {
                 AdminUser = new ApplicationUser();
         }
 
-        private  Guid adminUserId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
+        
 
         
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
