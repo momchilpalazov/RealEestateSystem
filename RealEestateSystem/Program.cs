@@ -39,7 +39,7 @@ namespace RealEestateSystem
 
             }).AddRoles<IdentityRole<Guid>>().AddEntityFrameworkStores<RealEstateSystemDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
-           
+             builder.Services.AddRecaptchaService();
 
             builder.Services.AddScoped<IHouseInterface, HouseService>();
             builder.Services.AddScoped<IAgentInterface, AgentServiceIndex>();
