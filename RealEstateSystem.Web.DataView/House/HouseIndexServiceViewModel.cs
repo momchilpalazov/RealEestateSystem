@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HouseRealEstateSystem.Services.Mapping;
+
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
-    public class HouseIndexServiceModel
+    public class HouseIndexServiceModel:IMapFrom<RealEstateSystem.Data.Models.House>
     {
         public Guid Id { get; set; }
 

@@ -1,13 +1,14 @@
 ﻿using RealEstateSystem.Models.ViewModels.Category;
 using static RealEstateSystem.Common.ViewModelValidationConstants.HouseFormModel;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
-using RealEstateSystem.Data.Models;
 using System.ComponentModel;
+using HouseRealEstateSystem.Services.Mapping;
+using AutoMapper;
+using RealEstateSystem.Data.Models;
 
 namespace RealEstateSystem.Models.ViewModels.House
 {
-    public class HouseFormModel
+    public class HouseFormModel:IMapTo<RealEstateSystem.Data.Models.House>,IHaveCustomMappings
     {
 
         public Guid Id { get; set; }
@@ -52,8 +53,10 @@ namespace RealEstateSystem.Models.ViewModels.House
 
         public ICollection<CategoryHouseServiceViewModel> Categories { get; set; } = new HashSet<CategoryHouseServiceViewModel>();
 
-
-
-
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<HouseFormModel, RealEstateSystem.Data.Models.House>().ForMember(x => x.AgentId, opt => opt.Ignore());
+            
+        }
     }
 }

@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using HouseRealEstateSystem.Services.Mapping;
+using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Data.Models;
 using RealEstateSystem.Models.ViewModels.Agents;
 using RealEstateSystem.Models.ViewModels.Category;
+using RealEstateSystem.Models.ViewModels.Home;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Helper;
@@ -22,43 +25,32 @@ namespace RealEstateSystem.Services.Data
 
         private readonly IApplicationUserInterface applicationUser;
 
+       
 
 
-        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding,IServiceProvider serviceProvider,DataBaseSaveImageHelper dataBaseSaveImageHelper,
-         IApplicationUserInterface applicationUser   )
+
+        public HouseService(RealEstateSystemDbContext db,GetImageFromDbDecoding fromDbDecoding,
+            IServiceProvider serviceProvider,DataBaseSaveImageHelper dataBaseSaveImageHelper,
+         IApplicationUserInterface applicationUser )
         {
             this.db = db;
             this.getImageFromDbDecoding = fromDbDecoding;
             this.serviceProvider = serviceProvider;  
             this.dataBaseSaveImageHelper = dataBaseSaveImageHelper;
             this.applicationUser = applicationUser;
+            
            
         }
 
         public async Task AddHouse(HouseFormModel house,Guid agentId )
         {
-            
-
-
-
-            var houseEntity = new House
-            {
-
-                Title =  house.Title,
-                Description = house.Description,
-                PricePerMonth = house.PricePerMonth,               
-                Address = house.Address,                              
-                CategoryId = house.CategoryId,
-                ImageUrl = house.ImageUrl, 
-                ImageId = house.ImagesId,
-                AgentId = agentId,
-                RenterId = null,
-                
-            };
-
+             
+            House newHouse= AutoMapperConfig.MapperInstance.Map<House>(house);
+            newHouse.ImageId = house.ImagesId;
+            newHouse.AgentId = agentId;
              
 
-            await this.db.Hauses.AddAsync(houseEntity);
+            await this.db.Hauses.AddAsync(newHouse);
             await this.db.SaveChangesAsync();
             
         }
@@ -309,19 +301,11 @@ namespace RealEstateSystem.Services.Data
             
         }
 
-        public async  Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
+        public async  Task<IEnumerable<IndexViewModel>> LastThreeHouses()
         {
-            var houses = await this.db.Hauses.OrderByDescending(x => x.Id).Take(3).Select(h => new HouseIndexServiceModel
-            {
-
-                Id = h.Id,
-                Title = h.Title,
-                ImageUrl = h.ImageUrl,
-                ImageId = h.ImageId,
-                Address = h.Address,
-
-
-            }).ToListAsync();
+            var houses = await this.db.Hauses.OrderByDescending(x => x.Id).
+                Take(3).
+                To<IndexViewModel>().ToListAsync();
 
             return houses;
 

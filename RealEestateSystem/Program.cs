@@ -9,6 +9,9 @@ using RealEstateSystems.Web.Infrastructure.Helper;
 using RealEstateSystems.Web.Infrastructure.Extensions;
 using static RealEstateSystem.Common.AdminRoleConstant;
 using RealEstateSystem.Controllers;
+using HouseRealEstateSystem.Services.Mapping;
+using RealEstateSystem.Models.ViewModels.Home;
+using System.Reflection;
 
 namespace RealEestateSystem
 {
@@ -47,9 +50,7 @@ namespace RealEestateSystem
             builder.Services.AddScoped<DataBaseSaveImageHelper>();
             builder.Services.AddScoped<GetImageFromDbDecoding>();
            
-            builder.Services.AddAutoMapper(
-                typeof(IHouseInterface).Assembly,
-                typeof(HomeController).Assembly);
+           
 
 
             //Add AntiforgeryToken filter against CSRF attacks
@@ -61,10 +62,10 @@ namespace RealEestateSystem
             
             builder.Services.AddRazorPages();
 
-            var app = builder.Build();           
+            var app = builder.Build();
 
-            
-            
+
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HouseRealEstateSystem.Services.Mapping\HouseRealEstateSystem.Services.Mapping.csproj" />
     <ProjectReference Include="..\RealEstateSystem.Data.Models\RealEstateSystem.Data.Models.csproj" />
   </ItemGroup>
 

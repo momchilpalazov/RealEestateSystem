@@ -1,13 +1,7 @@
-﻿using RealEstateSystem.Data.Models;
-using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
 using static RealEstateSystem.Common.EntityValidationConsatnts.Hause;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace RealEstateSystem.Data.Models
 {

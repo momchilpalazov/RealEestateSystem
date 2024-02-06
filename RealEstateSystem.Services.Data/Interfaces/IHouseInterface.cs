@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using RealEstateSystem.Models.ViewModels.Category;
+using RealEstateSystem.Models.ViewModels.Home;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystems.Web.Infrastructure.HouseSorting;
 using System;
@@ -15,7 +16,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
         Task AddHouse(HouseFormModel house,Guid agentId);
         HouseQueryServiceModel GetAllHouse(int? categoryId=null,string? searchTerm=null,HouseSorting sorting= HouseSorting.Newest,int currentPage=1,int housesPerPage=1);
         ICollection<CategoryHouseServiceViewModel> GetCategories();
-        Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses();
+        Task<IEnumerable<IndexViewModel>> LastThreeHouses();
 
         Task<IEnumerable<HouseServiceModel>>GetAllHouseByAgentId(Guid agentId);
 
