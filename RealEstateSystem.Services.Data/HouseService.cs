@@ -37,7 +37,7 @@ namespace RealEstateSystem.Services.Data
 
         public async Task AddHouse(HouseFormModel house,Guid agentId )
         {
-            //var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
+            
 
 
 
@@ -107,7 +107,7 @@ namespace RealEstateSystem.Services.Data
 
         public async Task EditSaveHouse(Guid Id, HouseEditFormModel house,Guid agentId )
         {
-            //var AgentId = Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f");
+            
 
             var houseEntity = await this.db.Hauses.FindAsync(house.Id);
 

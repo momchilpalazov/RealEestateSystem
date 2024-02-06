@@ -61,10 +61,7 @@ namespace RealEestateSystem
             
             builder.Services.AddRazorPages();
 
-            var app = builder.Build();
-
-
-            //app.SeedAdministrator("администраторският имейл");
+            var app = builder.Build();           
 
             
             

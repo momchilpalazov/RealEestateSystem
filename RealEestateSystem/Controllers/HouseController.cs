@@ -86,7 +86,11 @@ namespace RealEstateSystem.Controllers
                 {
                     var currentAgent = await agent.GetAgentId(Guid.Parse(userId));
 
+                    //Added housees  as Agent
                     myHouses = await this.houseService.GetAllHouseByAgentId(Guid.Parse(currentAgent));
+
+                    // Rented houses as User
+                    myHouses = await this.houseService.GetAllHouseByUserId(Guid.Parse(userId));
                 } 
                 else if (await agent.ExistById(Guid.Parse(userId)))
                 {
@@ -101,7 +105,7 @@ namespace RealEstateSystem.Controllers
 
             }            
 
-            return View(myHouses);
+            return View(myHouses.DistinctBy(h=>h.Id).ToList());
            
         }
 
@@ -319,11 +323,10 @@ namespace RealEstateSystem.Controllers
 
             if (await houseService.Isrented(id))
             {
-                TempData["Message"] =
-                    "Selected house is already rented by another user! Please select another house.";
+               
 
                 return RedirectToAction("All", "House");
-                //return BadRequest();
+                return BadRequest();
 
             }
 
