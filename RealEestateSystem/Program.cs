@@ -12,6 +12,7 @@ using RealEstateSystem.Controllers;
 using HouseRealEstateSystem.Services.Mapping;
 using RealEstateSystem.Models.ViewModels.Home;
 using System.Reflection;
+using Ganss.Xss;
 
 namespace RealEestateSystem
 {
@@ -49,6 +50,8 @@ namespace RealEestateSystem
             builder.Services.AddScoped<LocalSaveImageHelper>();
             builder.Services.AddScoped<DataBaseSaveImageHelper>();
             builder.Services.AddScoped<GetImageFromDbDecoding>();
+
+            builder.Services.AddSingleton<HtmlSanitizer>();
            
            
 

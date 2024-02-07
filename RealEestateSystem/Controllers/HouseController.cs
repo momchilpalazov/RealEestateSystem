@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RealEstateSystem.Data;
@@ -26,16 +27,20 @@ namespace RealEstateSystem.Controllers
 
         private readonly IAgentInterface agent;
 
+        private readonly HtmlSanitizer htmlSanitizer;
+
 
        
 
-        public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService, RealEstateSystemDbContext dbContext, GetImageFromDbDecoding getImageFromDbDecoding,IAgentInterface agent)
+        public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService,
+            RealEstateSystemDbContext dbContext, GetImageFromDbDecoding getImageFromDbDecoding,IAgentInterface agent,HtmlSanitizer htmlSanitizer)
         {
             this.houseService = houseService;
             this.imageService = imageService;
             this.dbContext = dbContext;
             this.getImageFromDbDecoding = getImageFromDbDecoding;
             this.agent = agent;
+            this.htmlSanitizer = htmlSanitizer;
         }
 
 
@@ -146,9 +151,16 @@ namespace RealEstateSystem.Controllers
         {
             //only agents are allowed to add houses
 
+            house.Description= this.htmlSanitizer.Sanitize(house.Description);
+            house.Title = this.htmlSanitizer.Sanitize(house.Title);
+            house.Address = this.htmlSanitizer.Sanitize(house.Address);
+            house.ImageUrl = this.htmlSanitizer.Sanitize(house.ImageUrl);
+
+
             if (!ModelState.IsValid)
             {
-                return View(house);
+                house.Categories = this.houseService.GetCategories();
+                return View("Add", house);
 
             }
 
@@ -210,6 +222,13 @@ namespace RealEstateSystem.Controllers
         [HttpPost]
         public async Task <IActionResult> EditPost(Guid Id, HouseEditFormModel house,IFormFile image)
         {
+
+            house.Description = this.htmlSanitizer.Sanitize(house.Description);
+            house.Title = this.htmlSanitizer.Sanitize(house.Title);
+            house.Address = this.htmlSanitizer.Sanitize(house.Address);
+            house.ImageUrl = this.htmlSanitizer.Sanitize(house.ImageUrl);
+
+
 
             if (await houseService.Exist(Id) == false)
             {
