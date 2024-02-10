@@ -52,6 +52,13 @@ namespace RealEestateSystem
             builder.Services.AddScoped<GetImageFromDbDecoding>();
 
             builder.Services.AddSingleton<HtmlSanitizer>();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Logout";
+                options.AccessDeniedPath = "/Home/Error/401";
+            });
            
            
 
@@ -111,6 +118,13 @@ namespace RealEestateSystem
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "Areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    
+                    );
+
+
                 endpoints.MapControllerRoute(
                 name: "areaRoute",
                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");                

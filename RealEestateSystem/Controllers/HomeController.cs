@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using RealEstateSystem.Models;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Helper;
-using System.Diagnostics;
+using static RealEstateSystem.Common.AdminRoleConstant;
+
 
 namespace RealEstateSystem.Controllers
 {
@@ -23,16 +22,20 @@ namespace RealEstateSystem.Controllers
        
 
         public async Task<IActionResult> Index()
-        {
-            var houses = await this.houseInteraface.LastThreeHouses();
+        {            
 
+            if (User.IsInRole(AdminRoleName))
+            {
+               return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
+            var houses = await this.houseInteraface.LastThreeHouses();
 
             foreach (var house in houses)
             {
                 house.ImageData = await this.getImageFromDbDecoding.GetImageAsync(house.ImageId??0);
             }           
-
-           
+                      
 
             return View(houses);
         }
