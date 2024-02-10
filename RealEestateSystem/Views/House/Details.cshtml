@@ -17,8 +17,17 @@
     <hr />
 
     <div class="row">
+       
         <div class="col-4">
-            <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="House Image">
+        @if (Model.ImageData != null && Model.ImageData.Length > 0)
+            {
+                <img class="card-img-top" style="width: 20rem" src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData)" alt="Image" />
+            }
+            else
+{
+                <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="House Image">
+            }
+
         </div>
 
         <div class="card col-8 border-0">
