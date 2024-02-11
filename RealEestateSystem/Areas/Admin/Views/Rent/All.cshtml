@@ -1,0 +1,33 @@
+﻿@model IEnumerable<RentServiceViewModel>
+@{
+    ViewBag.Title = "All Rents";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="row">
+    @foreach (var rent in Model)
+    {
+        <div class="card mb-3 col-4">
+            @if (rent.ImageData != null)
+            {
+                <img class="card-img-top"  src="data:image/png;base64,@Convert.ToBase64String(rent.ImageData)" alt="Image" />
+            }
+            else
+            {
+                <img class="card-img-top" src="@rent.ImageUrl" alt="House Image">
+            }
+            
+            @if (rent.ImageUrl == null && rent.ImageData == null)
+            {
+                <img class="card-img-top" src="https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg" alt="House Image">
+            }
+
+            <div class="card-body text-center">
+                <h4>@rent.HouseTite</h4>
+                <h6>Agent: <b>@rent.AgentFullName (@rent.AgentEmail)</b></h6>
+                <h6>Rented By: <b>@rent.RenterFullName (@rent.RenterEmail)</b></h6>
+            </div>
+        </div>
+    }
+
+</div>
