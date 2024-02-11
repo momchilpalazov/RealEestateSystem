@@ -1,15 +1,12 @@
 ﻿using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RealEstateSystem.Data;
-using RealEstateSystem.Data.Models;
-using RealEstateSystem.Models.ViewModels.Category;
 using RealEstateSystem.Models.ViewModels.House;
-using RealEstateSystem.Services.Data;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Extensions;
 using RealEstateSystems.Web.Infrastructure.Helper;
+using static RealEstateSystem.Common.AdminRoleConstant;
 
 namespace RealEstateSystem.Controllers
 {
@@ -74,7 +71,14 @@ namespace RealEstateSystem.Controllers
         {
             IEnumerable<HouseServiceModel>? myHouses = null;
 
-            var userId = this.User.GetId(); 
+            var userId = this.User.GetId();
+
+            if (User.IsInRole(AdminRoleName))
+            {
+
+                return RedirectToAction(actionName:"MineHouse",controllerName: "House", new { area="Admin" } );
+
+            }
 
 
             if (userId == null)

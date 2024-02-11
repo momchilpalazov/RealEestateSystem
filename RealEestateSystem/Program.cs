@@ -50,6 +50,7 @@ namespace RealEestateSystem
             builder.Services.AddScoped<LocalSaveImageHelper>();
             builder.Services.AddScoped<DataBaseSaveImageHelper>();
             builder.Services.AddScoped<GetImageFromDbDecoding>();
+            builder.Services.AddScoped<IUserInterface, UserService>();
 
             builder.Services.AddSingleton<HtmlSanitizer>();
 
