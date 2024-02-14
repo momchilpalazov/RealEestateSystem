@@ -79,7 +79,7 @@ namespace RealEstateSystem.Controllers
 
             var userId = this.User.GetId();
 
-            if (User.IsInRole(AdminRoleName))
+            if (User.IsInRole(RealEstateSystem.Common.AdminRoleConstant.AdminRoleName))
             {
 
                 return RedirectToAction(actionName:"MineHouse",controllerName: "House", new { area="Admin" } );
@@ -191,6 +191,7 @@ namespace RealEstateSystem.Controllers
 
 
             await this.houseService.AddHouse(house,Guid.Parse(agentId));
+            TempData["Message"] = "You have successfully added a house.";
             return RedirectToAction("All");
 
            
@@ -272,6 +273,7 @@ namespace RealEstateSystem.Controllers
             var agentId = this.agent.GetAgentId(new Guid(this.User.GetId())).Result;
 
             await this.houseService.EditSaveHouse(Id,house,Guid.Parse(agentId));
+            TempData["Message"] = "You have successfully edited a house.";
             return RedirectToAction("All");
             
         }
@@ -327,7 +329,7 @@ namespace RealEstateSystem.Controllers
             }
 
             await this.houseService.DeleteHouse(house.Id);
-
+            TempData["Message"] = "You have successfully deleted a house.";
             return RedirectToAction("All");
         }
 
@@ -359,6 +361,7 @@ namespace RealEstateSystem.Controllers
 
             await houseService.Rent(id, new Guid(this.User.GetId()));
             cache.Remove(RentCacheKey);
+            TempData["Message"] = "You have successfully rented a house.";
             return RedirectToAction(nameof(MineHouse));
             
         }
@@ -386,6 +389,7 @@ namespace RealEstateSystem.Controllers
 
             await houseService.Leave(id);
             cache.Remove(RentCacheKey);
+            TempData["Message"] = "You have successfully left a house.";
             return RedirectToAction(nameof(MineHouse));
 
            

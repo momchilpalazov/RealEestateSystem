@@ -76,6 +76,19 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+
+            @if (TempData["Message"] != null)
+            {
+            <div class="alert alert-success allert-dismissible fade show" role="alert">
+                @TempData["Message"]
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            }
+
             @RenderBody()
         </main>
     </div>

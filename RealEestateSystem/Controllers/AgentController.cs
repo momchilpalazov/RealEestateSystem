@@ -76,6 +76,8 @@ namespace RealEstateSystem.Controllers
 
             await agentInterface.Create(Guid.Parse(userId),becomeAgent);
 
+            TempData["Message"] = "You have successfully applied to become a agent.";
+
             return RedirectToAction("All", "House"); 
             
 
