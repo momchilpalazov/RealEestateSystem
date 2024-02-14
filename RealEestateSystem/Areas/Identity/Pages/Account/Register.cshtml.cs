@@ -18,9 +18,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using RealEstateSystem.Data.Models;
 using static RealEstateSystem.Common.EntityValidationConsatnts.ApplicationUser;
+using static RealEstateSystem.Areas.Admin.AdminConstants;
 
 namespace RealEstateSystem.Areas.Identity.Pages.Account
 {
@@ -33,13 +35,14 @@ namespace RealEstateSystem.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IMemoryCache _cache;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,IMemoryCache cache)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -47,6 +50,7 @@ namespace RealEstateSystem.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _cache = cache;
         }
 
         /// <summary>
@@ -162,6 +166,7 @@ namespace RealEstateSystem.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        _cache.Remove(UserCacheKey);
                         return LocalRedirect(returnUrl);
                     }
                 }

@@ -1,12 +1,14 @@
 ﻿using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using RealEstateSystem.Data;
 using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Extensions;
 using RealEstateSystems.Web.Infrastructure.Helper;
 using static RealEstateSystem.Common.AdminRoleConstant;
+using static RealEstateSystem.Areas.Admin.AdminConstants;
 
 namespace RealEstateSystem.Controllers
 {
@@ -26,11 +28,14 @@ namespace RealEstateSystem.Controllers
 
         private readonly HtmlSanitizer htmlSanitizer;
 
+        private readonly IMemoryCache cache;
+
 
        
 
         public HouseController(IHouseInterface houseService, DataBaseSaveImageHelper imageService,
-            RealEstateSystemDbContext dbContext, GetImageFromDbDecoding getImageFromDbDecoding,IAgentInterface agent,HtmlSanitizer htmlSanitizer)
+            RealEstateSystemDbContext dbContext, GetImageFromDbDecoding getImageFromDbDecoding,
+            IAgentInterface agent,HtmlSanitizer htmlSanitizer,IMemoryCache cache)
         {
             this.houseService = houseService;
             this.imageService = imageService;
@@ -38,6 +43,7 @@ namespace RealEstateSystem.Controllers
             this.getImageFromDbDecoding = getImageFromDbDecoding;
             this.agent = agent;
             this.htmlSanitizer = htmlSanitizer;
+            this.cache = cache;
         }
 
 
@@ -345,16 +351,14 @@ namespace RealEstateSystem.Controllers
 
 
             if (await houseService.Isrented(id))
-            {
-               
+            {              
 
-                return RedirectToAction("All", "House");
-                return BadRequest();
+                return RedirectToAction("All", "House");               
 
             }
 
             await houseService.Rent(id, new Guid(this.User.GetId()));
-
+            cache.Remove(RentCacheKey);
             return RedirectToAction(nameof(MineHouse));
             
         }
@@ -381,6 +385,7 @@ namespace RealEstateSystem.Controllers
             }
 
             await houseService.Leave(id);
+            cache.Remove(RentCacheKey);
             return RedirectToAction(nameof(MineHouse));
 
            

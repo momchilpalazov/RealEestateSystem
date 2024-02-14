@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstateSystem.Areas.Admin.Models.House;
-using RealEstateSystem.Models.ViewModels.House;
 using RealEstateSystem.Services.Data.Interfaces;
 using RealEstateSystems.Web.Infrastructure.Extensions;
+
 
 namespace RealEstateSystem.Areas.Admin.Controllers
 {
