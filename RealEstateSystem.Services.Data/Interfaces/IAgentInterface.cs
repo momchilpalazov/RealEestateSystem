@@ -12,9 +12,7 @@ namespace RealEstateSystem.Services.Data.Interfaces
     {
         Task<bool> ExistById(Guid userId);
 
-        Task<bool> ExistUserByPhoneNumber(string phoneNumber);
-
-        Task<bool> UserHasRent(Guid userId);
+        Task<bool> ExistAgentByPhoneNumber(string phoneNumber);  
 
         Task  Create(Guid userId, BecomeAgentFormModel model);
         Task <string> GetAgentId(Guid agentId);

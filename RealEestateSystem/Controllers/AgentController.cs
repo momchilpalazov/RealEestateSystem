@@ -14,9 +14,12 @@ namespace RealEstateSystem.Controllers
 
         private readonly IAgentInterface agentInterface;
 
-        public AgentController(IAgentInterface agentInterface)
+        private readonly IUserInterface userInterface;
+
+        public AgentController(IAgentInterface agentInterface,IUserInterface userInterface)
         {
             this.agentInterface = agentInterface;
+            this.userInterface = userInterface;
         }
        
         public async Task <IActionResult> Become()
@@ -58,12 +61,12 @@ namespace RealEstateSystem.Controllers
 
             }
             
-            if (await agentInterface.ExistUserByPhoneNumber(becomeAgent.PhoneNumber))
+            if (await agentInterface.ExistAgentByPhoneNumber(becomeAgent.PhoneNumber))
             {
                 ModelState.AddModelError(nameof(becomeAgent.PhoneNumber), "This phone number is already in use. Enter another one. ");
             }
 
-            if (await agentInterface.UserHasRent(Guid.Parse(userId)))
+            if (await userInterface.UserHasRent(Guid.Parse(userId)))
             {
                 ModelState.AddModelError("Error","You can't be a dealer because you have a rent.");
             }

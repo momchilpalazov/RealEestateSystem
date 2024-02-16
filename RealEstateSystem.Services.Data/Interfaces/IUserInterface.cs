@@ -9,6 +9,8 @@ namespace RealEstateSystem.Services.Data.Interfaces
 
         Task <IEnumerable<UserServiceViewModel>> All();
 
+        Task<bool> UserHasRent(Guid userId);
+
 
     }
 }

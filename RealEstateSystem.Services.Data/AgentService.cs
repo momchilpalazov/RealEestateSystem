@@ -7,11 +7,11 @@ using RealEstateSystem.Services.Data.Interfaces;
 
 namespace RealEstateSystem.Services.Data
 {
-    public class AgentServiceIndex : IAgentInterface
+    public class AgentService : IAgentInterface
     {
         private readonly RealEstateSystemDbContext db;
 
-        public AgentServiceIndex(RealEstateSystemDbContext db)
+        public AgentService(RealEstateSystemDbContext db)
         {
             this.db = db;
         }
@@ -41,21 +41,12 @@ namespace RealEstateSystem.Services.Data
            
         }
 
-        public async Task<bool> ExistUserByPhoneNumber(string phoneNumber)
+        public async Task<bool> ExistAgentByPhoneNumber(string phoneNumber)
         {
             var existUser = await this.db.Agents.AnyAsync(x => x.PhoneNumber == phoneNumber);
 
             return existUser;
-        }
-
-       
-
-        public async Task<bool> UserHasRent(Guid userId)
-        {
-            var hasRent = await this.db.Hauses.AnyAsync(x => x.RenterId == userId);  
-
-            return hasRent;
-        }
+        }   
 
        
 

@@ -4,11 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RealEstateSystem.Data;
 using RealEstateSystem.Models.ViewModels.User;
 using RealEstateSystem.Services.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RealEstateSystem.Services.Data
 {
@@ -56,6 +52,13 @@ namespace RealEstateSystem.Services.Data
             return $"{user.FirstName} {user.LastName}";       
 
             
+        }
+
+        public async Task<bool> UserHasRent(Guid userId)
+        {
+            var hasRent = await this.db.Hauses.AnyAsync(x => x.RenterId == userId);
+
+            return hasRent;
         }
     }
 }

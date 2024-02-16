@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.27" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HouseRealEstateSystem.Services.Mapping\HouseRealEstateSystem.Services.Mapping.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Data.Models\RealEstateSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Data\RealEstateSystem.Data.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Service.Data.Models\RealEstateSystem.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Services.Data\RealEstateSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\RealEstateSystem.Web.DataView\RealEstateSystem.Models.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

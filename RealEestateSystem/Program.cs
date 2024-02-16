@@ -43,7 +43,7 @@ namespace RealEestateSystem
              builder.Services.AddRecaptchaService();
 
             builder.Services.AddScoped<IHouseInterface, HouseService>();
-            builder.Services.AddScoped<IAgentInterface, AgentServiceIndex>();
+            builder.Services.AddScoped<IAgentInterface, AgentService>();
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
             builder.Services.AddScoped<IStatisticsInterface,StatisticsService>();
             builder.Services.AddScoped<IApplicationUserInterface,ApplicationUserService>();

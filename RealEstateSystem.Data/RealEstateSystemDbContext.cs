@@ -21,6 +21,15 @@ namespace RealEstateSystem.Data
         public RealEstateSystemDbContext(DbContextOptions<RealEstateSystemDbContext> options,bool seedData=true)
             : base(options)
         {
+            if (!this.Database.IsRelational())
+            {
+                Database.EnsureCreated();
+            }
+            else
+            {
+                Database.Migrate();
+            }
+
             this.seedData = seedData;
 
         }
@@ -40,11 +49,6 @@ namespace RealEstateSystem.Data
         {
 
 
-            //Assembly assembly = Assembly.GetAssembly(typeof(RealEstateSystemDbContext)) ?? throw new InvalidOperationException("Assembly not found.");
-            //    Assembly.GetExecutingAssembly();
-
-            //builder.ApplyConfigurationsFromAssembly(assembly);
-            //
 
             builder.ApplyConfiguration(new ApplicationUserEntityConfigurations());
             builder.ApplyConfiguration(new HouseEntityConfigurations());
