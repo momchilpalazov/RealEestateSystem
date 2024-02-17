@@ -10,7 +10,7 @@ namespace RealEstateSystem.Tests.UnitTests
        
         protected RealEstateSystemDbContext db;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUpBase()
         {
             db = DatabaseMock.Instance;
@@ -25,11 +25,12 @@ namespace RealEstateSystem.Tests.UnitTests
 
         public House RentedHouse { get; private set; }
 
-        private void SeedDataBase()
+        public void SeedDataBase()
         {
 
             AgentUser = new ApplicationUser
             {
+                Id = Guid.Parse("e64b19bf-ec2b-43a8-a5f2-ee94197cd191"),
                 UserName = "agent@admin.com",
                 NormalizedUserName = "AGENT@ADMIN.COM",
                 Email = "agent@admin.com",
@@ -47,6 +48,7 @@ namespace RealEstateSystem.Tests.UnitTests
 
             RenterUser = new ApplicationUser
             {
+                Id = Guid.Parse("5e993eee-ffbb-48dc-8e4d-b1a73056fa8a"),
                 UserName = "renter@renter.com",
                 NormalizedUserName = "RENTER@RENTER.COM",             
                 Email = "renter@renter.com",
@@ -67,16 +69,20 @@ namespace RealEstateSystem.Tests.UnitTests
 
             Agent = new Agent
             {
-                Id= Guid.Parse("723b08eb-551c-4f19-a202-8b83cd44568f"),
+               
+                Id = Guid.NewGuid(),
                 PhoneNumber = "+4915227452539",
-                UserId = Agent.Id
+                UserId = AgentUser.Id,
+                User = AgentUser
+             
+
             };
 
             db.Agents.Add(Agent);
 
             RentedHouse = new House
             {
-                Id = Guid.Parse("HouseId"),              
+                Id = Guid.Parse("83af2ef0-21a4-4bd8-9106-b66b8c413940"),              
                 Description = "House",
                 Address = "Address",
                 Title = "https://media.bonava.de/2869278/version/3/element/actual/0/storage/web-image/file/05939880.jpg",
@@ -95,7 +101,7 @@ namespace RealEstateSystem.Tests.UnitTests
 
             var nonRentedHouse = new House
             {
-                Id = Guid.Parse("NonRentedHouseId"),
+                Id = Guid.Parse("27f0a41c-6451-4a14-a73a-7d7ed11d8ec9"),
                 Description = "House",
                 Address = "Address",
                 Title = "https://media.bonava.de/2869278/version/3/element/actual/0/storage/web-image/file/05939880.jpg",
@@ -112,11 +118,11 @@ namespace RealEstateSystem.Tests.UnitTests
 
         }
 
-        [OneTimeSetUp]
+        [TearDown]
         public void TearDownBase()
         {
             db.Dispose();
-        }   
+        }
 
 
 
